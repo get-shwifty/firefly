@@ -4,8 +4,8 @@
   "description": "Starting point for Black powered apps.",
   "main": "gulpfile.js",
   "scripts": {
-    "start": "webpack-dev-server --mode=development",
-    "build": "webpack --mode=production --progress --hide-modules",
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
     "build:dev": "webpack --mode=development --progress --hide-modules",
     "clean": "rimraf dist/*"
   },
@@ -31,6 +31,7 @@
     "rimraf": "latest",
     "webpack": "latest",
     "webpack-cli": "latest",
-    "webpack-dev-server": "latest"
+    "webpack-dev-server": "latest",
+    "webpack-merge": "^4.2.1"
   }
 }
