@@ -19,11 +19,12 @@ export class Game extends GameObject {
     constructor() {
         super()
 
-        this.levelManager = new LevelManager()
-
         const assets = new AssetManager()
 
+        this.levelManager = new LevelManager()
         this.levelManager.enqueueLevels(assets)
+
+        assets.enqueueGoogleFont('Indie Flower')
 
         assets.enqueueAtlas('firefly', spriteFirefly, jsonFirefly);
         assets.enqueueAtlas('bat', spriteBat, jsonBat);
@@ -66,12 +67,26 @@ export class Game extends GameObject {
             const diff = gameLoop(this.state, action)
             this.displayManager.updateLevel(diff)
             _.merge(this.state, diff)
+            this.onStateChanged()
         }
     }
 
     onNewLevel() {
         this.state = _.cloneDeep(this.levelManager.level)
         this.displayManager.createLevel(this.state)
+    }
+
+    onStateChanged() {
+        const player = this.state.player
+        
+        // Manage death
+        if(player.life <= 0) {
+            // TODO animate ?
+            this.onNewLevel()
+        }
+        
+        // TODO next level
+        // TODO end game
     }
 }
 
