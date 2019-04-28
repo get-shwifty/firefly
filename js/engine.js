@@ -98,7 +98,7 @@ function move(state, dir) {
     return HANDLE_MOVE[toObject.type](state, toPos.toObject(), toObject)
 }
 
-function moveToSimple(state, pos, object) {
+function moveToSimple(state, pos) {
     const player = state.player
     player.pos = pos
 
@@ -110,11 +110,11 @@ function moveToSimple(state, pos, object) {
 ///////////////////////////////////////////////////////////////////////////
 // Spike
 
-function moveToSpike(state, pos, object) {
-    const res = moveToSimple(state, pos, object)
+function moveToSpike(state, pos, spike) {
+    const res = moveToSimple(state, pos)
     const player = res.player
 
-    player.life -= object.value
+    player.life -= spike.value
 
     return res
 }
@@ -123,7 +123,7 @@ function moveToSpike(state, pos, object) {
 // Crystal / doors
 
 function moveToCrystal(state, pos, crystal) {
-    const res = moveToSimple(state, pos, crystal)
+    const res = moveToSimple(state, pos)
     const player = res.player
 
     const glowAdded = Math.min(player.glow, crystal.maxGlow - crystal.currentGlow)
@@ -149,7 +149,7 @@ function moveToDoor(state, pos, door) {
         return null
     }
 
-    return moveToSimple(state, pos, crystal)
+    return moveToSimple(state, pos)
 }
 
 function openDoor(state, pos, door) {
