@@ -46,6 +46,14 @@ module.exports = {
       options: {
         name: '[name]-[hash:8].[ext]',
       },
+    }, {
+      type: 'javascript/auto',
+      test: /\.(json)/,
+      exclude: /(node_modules|bower_components)/,
+      use: [{
+        loader: 'file-loader',
+        options: { name: '[name]-[hash:8].[ext]' },
+      }],
     }],
   },
   plugins: [

@@ -28,6 +28,7 @@
     "black-engine": "github:MassiveHeights/Black#webpack4",
     "file-loader": "latest",
     "html-webpack-plugin": "latest",
+    "lodash": "^4.17.11",
     "rimraf": "latest",
     "webpack": "latest",
     "webpack-cli": "latest",
