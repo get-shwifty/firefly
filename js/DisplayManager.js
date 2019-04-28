@@ -2,13 +2,14 @@ import { GameObject } from "black-engine";
 import { Tile } from "./engine"
 import Firefly from './firefly'
 import Bat from './bat'
+import Sunflower from './sunflower'
 import {TILE_SIZE} from './game.js'
 
 // To Update : when the tiles classes will be defined
 const TILE_CLASS = {
     [Tile.GROUND]: GameObject,
-    [Tile.BAT]: GameObject,
-    [Tile.SUNFLOWER]: GameObject,
+    [Tile.BAT]: Bat,
+    [Tile.SUNFLOWER]: Sunflower,
     [Tile.CRYSTAL]: GameObject,
     [Tile.DOOR]: GameObject,
     [Tile.SPIKE]: GameObject
@@ -20,14 +21,16 @@ export default class DisplayManager extends GameObject {
     }
 
     onAdded() {
-        const bat = this.addChild(new Bat())
+        //const firefly = this.addChild(new Firefly())
+        //const bat = this.addChild(new Bat())
+        //const sunFlower = this.addChild(new Sunflower())
     }
 
     cleanLevel() {
         const numChildren = this.numChildren;
         for (var i = numChildren; i > 0 ; i--){
             this.removeChildAt(i-1)
-        }
+        }    
     }
 
     createLevel(level) {

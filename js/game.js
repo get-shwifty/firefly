@@ -6,9 +6,12 @@ import DisplayManager from './DisplayManager'
 import gameLoop, { Action } from './engine'
 
 import spriteFirefly from 'assets/sprite/lucioles.png'
-import jsonFirefly from 'assets/sprite/luciole_atlas.json'
 import spriteBat from 'assets/sprite/bats.png'
+import spriteOthers from 'assets/sprite/assets_atlas.png'
+import jsonFirefly from 'assets/sprite/luciole_atlas.json'
 import jsonBat from 'assets/sprite/bat_atlas.json'
+import jsonOther from 'assets/sprite/assets_atlas.json'
+
 
 const TILE_SIZE = 200
 
@@ -16,14 +19,16 @@ export class Game extends GameObject {
     constructor() {
         super()
 
-        this.levelManager = new LevelManager()
-
         const assets = new AssetManager()
 
+        this.levelManager = new LevelManager()
         this.levelManager.enqueueLevels(assets)
+
+        assets.enqueueGoogleFont('Indie Flower')
 
         assets.enqueueAtlas('firefly', spriteFirefly, jsonFirefly);
         assets.enqueueAtlas('bat', spriteBat, jsonBat);
+        assets.enqueueAtlas('other', spriteOthers, jsonOther);
 
         assets.on('complete', this.onAssetsLoadded, this)
         assets.loadQueue()
@@ -62,12 +67,26 @@ export class Game extends GameObject {
             const diff = gameLoop(this.state, action)
             this.displayManager.updateLevel(diff)
             _.merge(this.state, diff)
+            this.onStateChanged()
         }
     }
 
     onNewLevel() {
         this.state = _.cloneDeep(this.levelManager.level)
         this.displayManager.createLevel(this.state)
+    }
+
+    onStateChanged() {
+        const player = this.state.player
+        
+        // Manage death
+        if(player.life <= 0) {
+            // TODO animate ?
+            this.onNewLevel()
+        }
+        
+        // TODO next level
+        // TODO end game
     }
 }
 

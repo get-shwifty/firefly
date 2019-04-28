@@ -14,7 +14,7 @@ black.pauseOnHide = false;
 black.start();
 
 // // Set default stage size
-black.stage.setSize(900, 500);
+black.stage.setSize(200*8, 200*8);
 
 // // Makes stage always centered
 black.stage.scaleMode = StageScaleMode.LETTERBOX;

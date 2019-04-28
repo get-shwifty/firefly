@@ -5,8 +5,8 @@
             "x": 1,
             "y": 1
         },
-        "life": 3,
-        "glow": 4
+        "life": 1,
+        "glow": 3
     },
     "world": {
         "0": {
@@ -14,7 +14,8 @@
                 "type": "GROUND"
             },
             "1": {
-                "type": "SPIKE"
+                "type": "SPIKE",
+                "value": 1
             },
             "2": {
                 "type": "CRYSTAL",

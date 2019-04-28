@@ -33,4 +33,14 @@ export default class LevelManager {
     get level() {
         return this.levels[this.current].obj
     }
+
+    next() {
+        this.current++
+        if(this.current >= this.levels.lenght) {
+            this.current = 0
+            return true
+        }
+
+        return false
+    }
 }
