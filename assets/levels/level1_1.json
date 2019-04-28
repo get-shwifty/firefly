@@ -14,17 +14,20 @@
                 "type": "GROUND"
             },
             "1": {
-                "type": "GROUND"
+                "type": "SPIKE"
             },
             "2": {
-                "type": "PICS",
+                "type": "CRYSTAL",
                 "value": 2
             },
             "3": {
-                "type": "GROUND"
+                "type": "DOOR"
             },
             "4": {
-                "type": "GROUND"
+                "type": "BAT"
+            },
+            "5": {
+                "type": "SUNFLOWER"
             }
         }
     }

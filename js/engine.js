@@ -11,7 +11,11 @@ const Action = {
 
 const Tile = {
     GROUND: 'GROUND',
-    PICS: 'PICS'
+    SPIKE: 'SPIKE',
+    CRYSTAL: 'CRYSTAL',
+    DOOR: 'DOOR',
+    SUNFLOWER: 'SUNFLOWER',
+    BAT: 'BAT'
 }
 
 
