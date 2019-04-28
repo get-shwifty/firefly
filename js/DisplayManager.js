@@ -43,8 +43,8 @@ export default class DisplayManager extends GameObject {
         this.player.update(level.player)
 
         // Creating environment
-        for(const x in Object.keys(level.world)) {
-            for(const y in Object.keys(level.world[x])) {
+        for(const x of Object.keys(level.world)) {
+            for(const y of Object.keys(level.world[x])) {
                 const CLASS = TILE_CLASS[level.world[x][y].type]
                 if (CLASS){
                 const newTile = this.addChild(new CLASS())
@@ -60,11 +60,18 @@ export default class DisplayManager extends GameObject {
     }
 
     updateLevel(diff) {
+        console.log(diff)
         if (diff.player){
             this.player.updatePosition(diff.player.pos.x * TILE_SIZE, diff.player.pos.y * TILE_SIZE)
             this.player.update(diff.player)
         }
-        // if (diff.world)
-        console.log(diff)
+        if (diff.world){
+            for(const x of Object.keys(diff.world)) {
+                for(const y of Object.keys(diff.world[x])) {
+                    console.log(x,y,diff.world[x][y],this.worldGameObjects[diff.world[x][y].id])
+                    this.worldGameObjects[diff.world[x][y].id].update(diff.world[x][y])
+                }
+            }
+        }
     }
 }

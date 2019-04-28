@@ -25,6 +25,13 @@ export default class Bat extends GameObject {
     }
   }
 
+  update(bat){
+      this.number = bat.value
+    for (let i = 0; i < 5; i++){
+        this.children[i].visible = i < this.number;
+    }
+  }
+
   onAdded(m) {
     this.g = this.addChild(new Graphics())
     const g = this.g
