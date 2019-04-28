@@ -41,6 +41,7 @@ module.exports = {
       },
     }, {
       test: path.resolve(__dirname, 'assets'),
+      exclude: /\.json$/,
       loader: 'file-loader',
       options: {
         name: '[name]-[hash:8].[ext]',
