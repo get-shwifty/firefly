@@ -21,6 +21,7 @@ const Tile = {
 
 
 const DIRECTION = {
+    IDLE: Victor.fromObject({ x: 0, y: 0 }),
     UP: Victor.fromObject({ x: 0, y: -1 }),
     DOWN: Victor.fromObject({ x: 0, y: 1 }),
     LEFT: Victor.fromObject({ x: -1, y: 0 }),
@@ -30,11 +31,16 @@ const DIRECTION = {
 const CAN_SWAP = {
     [Tile.GROUND]: true,
     [Tile.SPIKE]: false,
+    [Tile.CRYSTAL]: true,
+    [Tile.DOOR]: true,
+    [Tile.SUNFLOWER]: false,
+    [Tile.BAT]: false
 }
 
 const HANDLE_MOVE = {
     [Tile.GROUND]: moveToSimple,
-    [Tile.SPIKE]: moveToSpike
+    [Tile.SPIKE]: moveToSpike,
+    [Tile.CRYSTAL]: moveToCrystal
 }
 
 export default function gameLoop(state, action) {
@@ -65,9 +71,7 @@ function swap(state) {
     player.life = glow
     player.glow = life
 
-    return {
-        player
-    }
+    return move(state, 'IDLE')
 }
 
 function move(state, dir) {
@@ -102,6 +106,27 @@ function moveToSpike(state, pos, object) {
     const player = res.player
 
     player.life -= object.value
+
+    return res
+}
+
+function moveToCrystal(state, pos, object) {
+    const res = moveToSimple(state, pos, object)
+    const player = res.player
+
+    const glowAdded = Math.min(player.glow, object.maxGlow - object.currentGlow)
+    player.glow -= glowAdded
+    object.currentGlow += glowAdded
+
+    res.world = {
+        [pos.x]: {
+            [pos.y]: object
+        }
+    }
+
+    if(object.currentGlow === object.maxGlow) {
+        // TODO open door if all crystals are full
+    }
 
     return res
 }

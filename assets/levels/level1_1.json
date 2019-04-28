@@ -19,7 +19,8 @@
             },
             "2": {
                 "type": "CRYSTAL",
-                "value": 2
+                "currentGlow": 0,
+                "maxGlow": 2
             },
             "3": {
                 "type": "DOOR"
