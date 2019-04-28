@@ -11,20 +11,20 @@
     "world": {
         "0": {
             "0": {
-                "type": "ground"
+                "type": "GROUND"
             },
             "1": {
-                "type": "ground"
+                "type": "GROUND"
             },
             "2": {
-                "type": "pics",
+                "type": "PICS",
                 "value": 2
             },
             "3": {
-                "type": "ground"
+                "type": "GROUND"
             },
             "4": {
-                "type": "ground"
+                "type": "GROUND"
             }
         }
     }

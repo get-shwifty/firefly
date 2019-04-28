@@ -30,6 +30,6 @@ export default class DisplayManager extends GameObject {
     }
 
     updateLevel(diff) {
-        
+        console.log(diff)
     }
 }
