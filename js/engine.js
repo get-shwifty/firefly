@@ -11,7 +11,7 @@ const Action = {
 
 const Tile = {
     GROUND: 'GROUND',
-    PICS: 'PICS'
+    SPIKE: 'SPIKE'
 }
 
 
@@ -24,7 +24,13 @@ const DIRECTION = {
 }
 
 const CAN_SWAP = {
-    [Tile.GROUND]: true
+    [Tile.GROUND]: true,
+    [Tile.SPIKE]: false,
+}
+
+const HANDLE_MOVE = {
+    [Tile.GROUND]: moveToSimple,
+    [Tile.SPIKE]: moveToSpike
 }
 
 export default function gameLoop(state, action) {
@@ -44,7 +50,7 @@ export default function gameLoop(state, action) {
 
 function swap(state) {
     const pos = Victor.fromObject(state.player.pos)
-    const object = state.world[pos.x][pos.y]
+    const object = _.get(state.world, [pos.x, pos.y])
 
     if(!CAN_SWAP[object.type]) {
         return null
@@ -64,7 +70,36 @@ function move(state, dir) {
     const fromPos = Victor.fromObject(state.player.pos)
     const toPos = fromPos.clone().add(DIRECTION[dir])
 
+    // const fromObject = _.get(state.world, [fromPos.x, fromPos.y])
+    const toObject = _.get(state.world, [toPos.x, toPos.y])
 
+    if(!toObject) {
+        return null
+    }
+
+    if(!HANDLE_MOVE[toObject.type]) {
+        return null
+    }
+
+    return HANDLE_MOVE[toObject.type](state, toPos.toObject(), toObject)
+}
+
+function moveToSimple(state, pos, object) {
+    const player = state.player
+    player.pos = pos
+
+    return {
+        player
+    }
+}
+
+function moveToSpike(state, pos, object) {
+    const res = moveToSimple(state, pos, object)
+    const player = res.player
+
+    player.life -= object.value
+
+    return res
 }
 
 export {
