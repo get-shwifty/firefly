@@ -27,9 +27,8 @@ export default class DisplayManager extends GameObject {
     }
 
     cleanLevel() {
-        const numChildren = this.numChildren;
-        for (var i = numChildren; i > 0 ; i--){
-            this.removeChildAt(i-1)
+        while (this.numChildren > 0){
+            this.removeChildAt(this.numChildren-1)
         }    
     }
 
@@ -41,7 +40,7 @@ export default class DisplayManager extends GameObject {
         // Creating Player
         this.player = this.addChild(new Firefly())
         this.player.updatePosition(level.player.pos.x * TILE_SIZE, level.player.pos.y * TILE_SIZE)
-        this.player.updateAttributes(level.player.life, level.player.glow)
+        this.player.update(level.player)
 
         // Creating environment
         for(const x in Object.keys(level.world)) {
@@ -49,7 +48,7 @@ export default class DisplayManager extends GameObject {
                 const CLASS = TILE_CLASS[level.world[x][y].type]
                 if (CLASS){
                 const newTile = this.addChild(new CLASS())
-                newTile.x = Number(x) 
+                newTile.x = +x 
                 newTile.y = Number(y)
                 this.worldGameObjects[level.world[x][y].id] = newTile
                 } else {
@@ -57,10 +56,15 @@ export default class DisplayManager extends GameObject {
                 }
             }
         }
-        console.log(this.worldGameObjects)
+        // console.log(this.worldGameObjects)
     }
 
     updateLevel(diff) {
+        if (diff.player){
+            this.player.updatePosition(diff.player.pos.x * TILE_SIZE, diff.player.pos.y * TILE_SIZE)
+            this.player.update(diff.player)
+        }
+        // if (diff.world)
         console.log(diff)
     }
 }
