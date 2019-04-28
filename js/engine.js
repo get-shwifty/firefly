@@ -9,7 +9,7 @@ const Action = {
     SWAP: 'SWAP'
 }
 
-const Elements = {
+const Tile = {
     GROUND: 'GROUND',
     PICS: 'PICS'
 }
@@ -24,7 +24,7 @@ const DIRECTION = {
 }
 
 const CAN_SWAP = {
-    [Elements.GROUND]: true
+    [Tile.GROUND]: true
 }
 
 export default function gameLoop(state, action) {
@@ -69,5 +69,5 @@ function move(state, dir) {
 
 export {
     Action,
-    Elements
+    Tile
 }
