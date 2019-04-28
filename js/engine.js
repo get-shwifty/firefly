@@ -11,15 +11,11 @@ const Action = {
 
 const Tile = {
     GROUND: 'GROUND',
-<<<<<<< HEAD
     SPIKE: 'SPIKE',
     CRYSTAL: 'CRYSTAL',
     DOOR: 'DOOR',
     SUNFLOWER: 'SUNFLOWER',
     BAT: 'BAT'
-=======
-    SPIKE: 'SPIKE'
->>>>>>> f665ef8747898c64a14d3bd26b281dc0a9e78d22
 }
 
 

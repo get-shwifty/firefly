@@ -17,11 +17,7 @@
                 "type": "SPIKE"
             },
             "2": {
-<<<<<<< HEAD
                 "type": "CRYSTAL",
-=======
-                "type": "SPIKE",
->>>>>>> f665ef8747898c64a14d3bd26b281dc0a9e78d22
                 "value": 2
             },
             "3": {
