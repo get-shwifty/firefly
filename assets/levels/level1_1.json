@@ -20,16 +20,27 @@
             "2": {
                 "type": "CRYSTAL",
                 "currentGlow": 0,
-                "maxGlow": 2
+                "maxGlow": 2,
+                "doorPos": {
+                    "x": 0,
+                    "y": 3
+                }
             },
             "3": {
-                "type": "DOOR"
+                "type": "DOOR",
+                "opened": false,
+                "crystalsPos": [{
+                    "x": 0,
+                    "y": 2
+                }]
             },
             "4": {
-                "type": "BAT"
+                "type": "BAT",
+                "value": 2
             },
             "5": {
-                "type": "SUNFLOWER"
+                "type": "SUNFLOWER",
+                "value": 2
             }
         }
     }

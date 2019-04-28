@@ -65,9 +65,11 @@ export class Game extends GameObject {
 
         if(action) {
             const diff = gameLoop(this.state, action)
-            this.displayManager.updateLevel(diff)
-            _.merge(this.state, diff)
-            this.onStateChanged()
+            if(diff) {
+                this.displayManager.updateLevel(diff)
+                _.merge(this.state, diff)
+                this.onStateChanged()
+            }
         }
     }
 
