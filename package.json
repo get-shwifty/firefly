@@ -28,11 +28,14 @@
     "black-engine": "github:MassiveHeights/Black#webpack4",
     "file-loader": "latest",
     "html-webpack-plugin": "latest",
-    "lodash": "^4.17.11",
     "rimraf": "latest",
     "webpack": "latest",
     "webpack-cli": "latest",
     "webpack-dev-server": "latest",
     "webpack-merge": "^4.2.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "victor": "^1.1.0"
   }
 }

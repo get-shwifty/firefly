@@ -3,7 +3,7 @@ import { Black, GameObject, AssetManager, Key } from 'black-engine';
 
 import LevelManager from './LevelManager'
 import DisplayManager from './DisplayManager'
-import gameLoop, { actions } from './engine'
+import gameLoop, { Action } from './engine'
 
 import spriteFirefly from 'assets/sprite/lucioles.png'
 import jsonFirefly from 'assets/sprite/luciole_atlas.json'
@@ -42,19 +42,19 @@ export class Game extends GameObject {
         let action;
         switch (keyInfo.keyCode) {
             case Key.UP_ARROW:
-            action = actions.UP
+            action = Action.UP
             break
             case Key.DOWN_ARROW:
-            action = actions.DOWN
+            action = Action.DOWN
             break
             case Key.LEFT_ARROW:
-            action = actions.LEFT
+            action = Action.LEFT
             break
             case Key.RIGHT_ARROW:
-            action = actions.RIGHT
+            action = Action.RIGHT
             break
             case Key.SPACE:
-            action = actions.SWAP
+            action = Action.SWAP
             break
         }
 
