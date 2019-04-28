@@ -8,7 +8,7 @@ const actions = {
 }
 
 export default function gameLoop(state, action) {
-    
+    console.log(state, action)
 }
 
 export {

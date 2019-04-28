@@ -1,16 +1,17 @@
-import LevelManager from './core/LevelManager'
-import DisplayManager from './display/DisplayManager'
-import gameLoop, { actions } from './core/engine'
-import { GameObject, AssetManager } from 'black-engine';
+import _ from 'lodash'
+import { Black, GameObject, AssetManager, Key } from 'black-engine';
 
-const TILE_SIZE = 100
+import LevelManager from './LevelManager'
+import DisplayManager from './DisplayManager'
+import gameLoop, { actions } from './engine'
+
+const TILE_SIZE = 200
 
 export class Game extends GameObject {
     constructor() {
         super()
 
         this.levelManager = new LevelManager()
-        this.displayManager = new DisplayManager()
 
         const assets = new AssetManager()
 
@@ -21,8 +22,12 @@ export class Game extends GameObject {
     }
 
     onAssetsLoadded(m) {
+        this.displayManager = this.addChild(new DisplayManager())
+
         this.levelManager.onAssetsLoadded()
         this.onNewLevel()
+
+        Black.input.on('keyPress', this.onKeyPress, this)
     }
 
     onKeyPress(msg, keyInfo) {
@@ -46,13 +51,14 @@ export class Game extends GameObject {
         }
 
         if(action) {
-            const diff = gameLoop(state, action)
+            const diff = gameLoop(this.state, action)
             this.displayManager.updateLevel(diff)
         }
     }
 
     onNewLevel() {
-        this.displayManager.createLevel(this.levelManager.level)
+        this.state = _.cloneDeep(this.levelManager.level)
+        this.displayManager.createLevel(this.state)
     }
 }
 

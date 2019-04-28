@@ -15,7 +15,7 @@ export default class DisplayManager extends GameObject {
         }
     }
 
-    updateDiff(diff) {
+    updateLevel(diff) {
         
     }
 }
