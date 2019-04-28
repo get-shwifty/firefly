@@ -1,6 +1,7 @@
 import { GameObject } from "black-engine";
 import { Tile } from "./engine"
 import Firefly from './firefly'
+import Bat from './bat'
 
 // To Update : when the tiles classes will be defined
 const TILE_CLASS = {
@@ -19,6 +20,7 @@ export default class DisplayManager extends GameObject {
 
     onAdded() {
         const firefly = this.addChild(new Firefly())
+        const bat = this.addChild(new Bat())
 
         let pos = {
             x: 100,
@@ -27,6 +29,7 @@ export default class DisplayManager extends GameObject {
 
         firefly.updatePosition(pos)
         firefly.updateAttributes(3,3)
+
 
     }
 
