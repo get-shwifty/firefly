@@ -17,16 +17,15 @@ export default class Firefly extends GameObject {
   }
 
   //Mouvement de la libellule
-  updatePosition(pos){
-    this.x = pos.x;
-    this.y = pos.y;
+  updatePosition(x,y){
+    this.x = x;
+    this.y = y;
   }
 
   //Swap de la vie et de la lumière
   updateAttributes(life, glow) {
     this.life = life
     this.glow = glow 
-
     //Affichage ou suppression des libellules en fonction de la vie 
     for (let i = 0; i < 5; i++){
         this.children[i].visible = i < this.life;
