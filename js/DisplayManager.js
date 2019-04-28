@@ -2,6 +2,7 @@ import { GameObject } from "black-engine";
 
 import Firefly from './firefly'
 import Bat from './bat'
+import Sunflower from './sunflower'
 
 export default class DisplayManager extends GameObject {
     constructor() {
@@ -9,18 +10,9 @@ export default class DisplayManager extends GameObject {
     }
 
     onAdded() {
-        const firefly = this.addChild(new Firefly())
-        const bat = this.addChild(new Bat())
-
-        let pos = {
-            x: 100,
-            y: 200
-        }
-
-        firefly.updatePosition(pos)
-        firefly.updateAttributes(3,3)
-
-
+        //const firefly = this.addChild(new Firefly())
+        //const bat = this.addChild(new Bat())
+        //const sunFlower = this.addChild(new Sunflower())
     }
 
     createLevel(level) {
