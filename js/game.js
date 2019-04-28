@@ -7,6 +7,8 @@ import gameLoop, { actions } from './engine'
 
 import spriteFirefly from 'assets/sprite/lucioles.png'
 import jsonFirefly from 'assets/sprite/luciole_atlas.json'
+import spriteBat from 'assets/sprite/bats.png'
+import jsonBat from 'assets/sprite/bat_atlas.json'
 
 const TILE_SIZE = 200
 
@@ -20,7 +22,8 @@ export class Game extends GameObject {
 
         this.levelManager.enqueueLevels(assets)
 
-        assets.enqueueAtlas('atlas', spriteFirefly, jsonFirefly);
+        assets.enqueueAtlas('firefly', spriteFirefly, jsonFirefly);
+        assets.enqueueAtlas('bat', spriteBat, jsonBat);
 
         assets.on('complete', this.onAssetsLoadded, this)
         assets.loadQueue()
