@@ -1,12 +1,14 @@
-import LevelManager from './core/LevelManager'
-import DisplayManager from './display/DisplayManager'
-import gameLoop, { actions } from './core/engine'
-import { GameObject, AssetManager } from 'black-engine';
+import _ from 'lodash'
+import { Black, GameObject, AssetManager, Key } from 'black-engine';
+
+import LevelManager from './LevelManager'
+import DisplayManager from './DisplayManager'
+import gameLoop, { actions } from './engine'
 
 import spriteFirefly from 'assets/sprite/lucioles.png'
 import jsonFirefly from 'assets/sprite/luciole_atlas.json'
 
-const TILE_SIZE = 100
+const TILE_SIZE = 200
 
 export class Game extends GameObject {
     constructor() {
@@ -29,6 +31,8 @@ export class Game extends GameObject {
 
         this.levelManager.onAssetsLoadded()
         this.onNewLevel()
+
+        Black.input.on('keyPress', this.onKeyPress, this)
     }
 
     onKeyPress(msg, keyInfo) {
@@ -52,13 +56,14 @@ export class Game extends GameObject {
         }
 
         if(action) {
-            const diff = gameLoop(state, action)
+            const diff = gameLoop(this.state, action)
             this.displayManager.updateLevel(diff)
         }
     }
 
     onNewLevel() {
-        this.displayManager.createLevel(this.levelManager.level)
+        this.state = _.cloneDeep(this.levelManager.level)
+        this.displayManager.createLevel(this.state)
     }
 }
 
