@@ -3,6 +3,8 @@ import { Tile } from "./engine"
 import Firefly from './firefly'
 import Bat from './bat'
 import Sunflower from './sunflower'
+import Ground from './ground'
+import Door from './door'
 
 // To Update : when the tiles classes will be defined
 const TILE_CLASS = {
@@ -20,9 +22,6 @@ export default class DisplayManager extends GameObject {
     }
 
     onAdded() {
-        //const firefly = this.addChild(new Firefly())
-        //const bat = this.addChild(new Bat())
-        //const sunFlower = this.addChild(new Sunflower())
     }
 
     createLevel(level) {

@@ -1,6 +1,6 @@
 import { GameObject, Black, AssetManager, Sprite, BlendMode, AnimationController, Graphics, Tween, Ease } from 'black-engine'
 
-const TILE_SIZE = 200
+import {TILE_SIZE} from './game'
 
 export default class Sunflower extends GameObject {
   constructor() {

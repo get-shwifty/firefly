@@ -1,6 +1,6 @@
 import { GameObject, Black, AssetManager, Sprite, BlendMode, AnimationController, Graphics, Tween, Ease } from 'black-engine'
 
-const TILE_SIZE = 100
+import {TILE_SIZE} from './game'
 const POS = [
         { x: 0.5, y: 0.5},
         { x: 0.20, y: 0.20},
