@@ -8,38 +8,24 @@
         "life": 1,
         "glow": 2
     },
-    "world": [
-        {
-            "type": "ground",
-            "pos": {
-                "x": 0,
-                "y": 0
-            }
-        },{
-            "type": "ground",
-            "pos": {
-                "x": 1,
-                "y": 0
-            }
-        },{
-            "type": "pics",
-            "pos": {
-                "x": 2,
-                "y": 0
+    "world": {
+        "0": {
+            "0": {
+                "type": "ground"
             },
-            "value": 1
-        },{
-            "type": "ground",
-            "pos": {
-                "x": 3,
-                "y": 0
-            }
-        },{
-            "type": "ground",
-            "pos": {
-                "x": 4,
-                "y": 0
+            "1": {
+                "type": "ground"
+            },
+            "2": {
+                "type": "pics",
+                "value": 2
+            },
+            "3": {
+                "type": "ground"
+            },
+            "4": {
+                "type": "ground"
             }
         }
-    ]
+    }
 }
