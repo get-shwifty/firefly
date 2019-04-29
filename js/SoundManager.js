@@ -83,14 +83,10 @@ export default class SoundManager {
     }
 
     updateLevel(state){
-
-        console.log(state)
-
         this.getdistancefromplayer(state)
     }
 
     createLevel(state){
-        console.log("level created")
         this.updateLevel(state)
     }
     
@@ -104,7 +100,6 @@ export default class SoundManager {
 
     getdistancefromplayer(state)
     {
-        console.log(state.player)
         let playerpos = state.player.pos;
 
         let distancemap = {};
@@ -127,8 +122,6 @@ export default class SoundManager {
         }
 
         let FADE_DURATION = 0.5;
-
-        console.log(this.distanceVolume)
 
         for(var type in this.musicSources) {
 
