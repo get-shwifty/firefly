@@ -4,6 +4,7 @@ import { Black, GameObject, AssetManager, Key } from 'black-engine';
 import LevelManager from './LevelManager'
 import DisplayManager from './DisplayManager'
 import SoundManager from './SoundManager'
+import Ui from './ui'
 import gameLoop, { Action, initState } from './engine'
 
 import spriteFirefly from 'assets/sprite/lucioles.png'
@@ -41,6 +42,7 @@ export class Game extends GameObject {
 
     onAssetsLoadded(m) {
         this.displayManager = this.addChild(new DisplayManager())
+        this.ui = this.addChild(new Ui())
 
         this.levelManager.onAssetsLoadded()
         //this.soundManager.onAssetsLoadded()
