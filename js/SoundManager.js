@@ -53,6 +53,23 @@ export default class SoundManager {
         Black.audio.createChannel('godrayChannel')
         this.godray = Black.audio.play('godraySound', 'godrayChannel', 0, true)
 
+        this.musicSources = {
+            'SPIKE' : this.frog,
+            'CRYSTAL': this.crystal,
+            'DOOR' : this.door,
+            'SUNFLOWER': this.flower,
+            'BAT': this.bat,
+            'GODRAYS': this.godray,
+            'EXIT' : this.exit,
+        }
+
+        this.distanceVolume = {
+            0 :1,
+            1:0.75,
+            2 : 0.5,
+            3: 0.25,
+            4: 0,
+        }
     }
 
     updateLevel(state){
@@ -99,7 +116,26 @@ export default class SoundManager {
             }
         }
 
-        console.log(distancemap)
+        let FADE_DURATION = 0.5;
+
+        console.log(this.musicSources)
+
+        for(var type in this.musicSources) {
+
+            let distance = distancemap[type]
+
+            if(!distance || distance > 4)
+            {
+                distance = 4;//max value
+            }
+
+            var musicsource = this.musicSources[type];
+
+            let targetVolume = this.distanceVolume[distance];
+            let currentSourceVolume = musicsource.volume;
+            musicsource.fade(currentSourceVolume, targetVolume, FADE_DURATION)
+            console.log('fade '+type + ' from '+currentSourceVolume+' to '+ currentSourceVolume)
+        }
     }
 
 
