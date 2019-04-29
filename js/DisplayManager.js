@@ -1,4 +1,4 @@
-import { GameObject } from "black-engine";
+import { GameObject, Sprite } from "black-engine";
 import { Tile } from "./engine"
 import Firefly from './display/firefly'
 import Bat from './display/bat'
@@ -8,6 +8,7 @@ import Door from './display/door'
 import Spike from './display/spike'
 import Crystal from './display/crystal'
 import Godrays from './display/godrays'
+import Glow from './display/glow'
 import {TILE_SIZE} from './game.js'
 
 
@@ -38,25 +39,41 @@ export default class DisplayManager extends GameObject {
 
     createLevel(level) {
         this.cleanLevel()
-        console.log(level)
         this.worldGameObjects = {}
+        // Layer 1 : Textures ground
+        const ground = this.addChild(new GameObject)
 
-        // Creating environment
+        // Layer 2 : Creating environment
+        const environment = this.addChild(new GameObject)
         for(const x of Object.keys(level.world)) {
             for(const y of Object.keys(level.world[x])) {
                 const CLASS = TILE_CLASS[level.world[x][y].type]
                 if (CLASS){
-                const newTile = this.addChild(new CLASS(level.world[x][y]))
-                newTile.x = +x * TILE_SIZE
-                newTile.y = +y * TILE_SIZE
-                this.worldGameObjects[level.world[x][y].id] = newTile
+
+                    // Adding basic ground texture to layer 1
+                    const groundTile = ground.addChild(new GameObject)
+                    groundTile.x = +x * TILE_SIZE
+                    groundTile.y = +y * TILE_SIZE
+                    groundTile.addChild(new Sprite('chemin_full'))
+
+                    // New tile at layer 2
+                    const newTile = environment.addChild(new CLASS(level.world[x][y]))
+                    newTile.x = +x * TILE_SIZE
+                    newTile.y = +y * TILE_SIZE
+                    this.worldGameObjects[level.world[x][y].id] = newTile
                 } else {
                     throw Error("Error : world element" + " '" + level.world[x][y].type + "' not recognized")
                 }
             }
         }
 
-        // Creating Player (After environment for layering. Check Z-index Alexis ?)
+        // Layer 3 : Light glow
+        const glow = this.addChild(new GameObject)
+        const glowTile = glow.addChild(new Glow(2))
+        glowTile.x = 2
+        glowTile.y = 0
+
+        // Layer 4 : Player
         this.player = this.addChild(new Firefly())
         this.player.updatePosition(level.player.pos.x * TILE_SIZE, level.player.pos.y * TILE_SIZE)
         this.player.update(level.player)
