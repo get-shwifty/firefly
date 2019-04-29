@@ -1,4 +1,5 @@
 import { Black } from "black-engine";
+import { objectsInLayer } from './engine'
 
 import level1_1 from 'assets/levels/level1_1.json'
 
@@ -22,11 +23,8 @@ export default class LevelManager {
         // Check levels
         for(const level of this.levels) {
             level.obj = Black.assets.getJSON(level.name)
-            for(const x of Object.keys(level.obj.world)) {
-                for(const y of Object.keys(level.obj.world[x])) {
-                    const obj = level.obj.world[x][y]
-                    obj.id = 'world_' + x + '_' + y
-                }
+            for(const [x, y, obj] of objectsInLayer(level.obj.world)) {
+                obj.id = 'world_' + x + '_' + y
             }
         }
     }
@@ -37,7 +35,7 @@ export default class LevelManager {
 
     next() {
         this.current++
-        if(this.current >= this.levels.lenght) {
+        if(this.current >= this.levels.length) {
             this.current = 0
             return true
         }

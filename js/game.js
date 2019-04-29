@@ -97,9 +97,17 @@ export class Game extends GameObject {
             // TODO animate ?
             this.onNewLevel()
         }
-        
-        // TODO next level
-        // TODO end game
+
+        if(this.state.win) {
+            const finished = this.levelManager.next()
+            if(finished) {
+                // TODO
+                console.log('END OF THE GAME TODO')
+                this.onNewLevel() // tmp
+            } else {
+                this.onNewLevel()
+            }
+        }
     }
 }
 
