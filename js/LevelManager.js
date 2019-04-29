@@ -3,13 +3,17 @@ import { objectsInLayer } from './engine'
 
 import level1_1 from 'assets/levels/level1_1.json'
 
+const LEVELS = [
+    ['level1_1', level1_1]
+]
+
 export default class LevelManager {
     constructor() {
-        this.levels = [{
-            name: 'level1_1',
-            file: level1_1,
+        this.levels = LEVELS.map(arr => ({
+            name: arr[0],
+            file: arr[1],
             obj: null
-        }]
+        }))
         this.current = 0
     }
 
