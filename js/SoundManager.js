@@ -42,7 +42,7 @@ export default class SoundManager {
         this.exit = Black.audio.play('exitSound', 'exitChannel', 0, true)
 
         Black.audio.createChannel('fireflyChannel')
-        this.firefly = Black.audio.play('fireflySound', 'fireflyChannel', 0, true)
+        this.firefly = Black.audio.play('fireflySound', 'fireflyChannel', 0.8, true)
 
         Black.audio.createChannel('flowerChannel')
         this.flower = Black.audio.play('flowerSound', 'flowerChannel', 0, true)
@@ -63,12 +63,22 @@ export default class SoundManager {
             'EXIT' : this.exit,
         }
 
+        this.musicVolumes = {
+            'SPIKE' : 0,
+            'CRYSTAL': 0,
+            'DOOR' : 0,
+            'SUNFLOWER': 0,
+            'BAT': 0,
+            'GODRAYS': 0,
+            'EXIT' : 0,
+        }
+
         this.distanceVolume = {
             0 :1,
-            1:0.75,
-            2 : 0.5,
+            1:1,
+            2 : 0.75,
             3: 0.25,
-            4: 0,
+            4: 0.0,
         }
     }
 
@@ -81,7 +91,7 @@ export default class SoundManager {
 
     createLevel(state){
         console.log("level created")
-        //updateLevel(state)
+        this.updateLevel(state)
     }
     
     getdistance(x,y,playerpos)
@@ -118,7 +128,7 @@ export default class SoundManager {
 
         let FADE_DURATION = 0.5;
 
-        console.log(this.musicSources)
+        console.log(this.distanceVolume)
 
         for(var type in this.musicSources) {
 
@@ -132,9 +142,9 @@ export default class SoundManager {
             var musicsource = this.musicSources[type];
 
             let targetVolume = this.distanceVolume[distance];
-            let currentSourceVolume = musicsource.volume;
+            let currentSourceVolume = this.musicVolumes[type];
             musicsource.fade(currentSourceVolume, targetVolume, FADE_DURATION)
-            console.log('fade '+type + ' from '+currentSourceVolume+' to '+ currentSourceVolume)
+            this.musicVolumes[type] = targetVolume;
         }
     }
 
