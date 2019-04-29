@@ -73,6 +73,7 @@ export class Game extends GameObject {
             if(!_.isEmpty(changes.after)) {
                 console.log(state)
                 this.displayManager.updateLevel(changes.after)
+                this.soundManager.updateLevel(state)
                 this.state = state
                 this.onStateChanged()
             }
@@ -82,6 +83,7 @@ export class Game extends GameObject {
     onNewLevel() {
         this.state = initState(_.cloneDeep(this.levelManager.level))
         this.displayManager.createLevel(this.state)
+        this.soundManager.createLevel(this.state)
     }
 
     onStateChanged() {
