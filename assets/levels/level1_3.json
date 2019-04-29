@@ -1,11 +1,11 @@
 {
-  "title": "level1_1",
+  "title": "level1_3",
   "player": {
     "pos": {
       "x": 0,
       "y": 0
     },
-    "life": 2,
+    "life": 1,
     "glow": 5
   },
   "world": {
@@ -32,7 +32,8 @@
     },
     "4": {
       "0": {
-        "type": "GROUND"
+        "type": "SPIKE",
+        "value": 2
       }
     },
     "5": {

@@ -1,6 +1,6 @@
 import { Black } from "black-engine";
 
-import level1_1 from 'assets/levels/level1_1.json'
+import level1_1 from 'assets/levels/level1_8.json'
 
 export default class LevelManager {
     constructor() {
