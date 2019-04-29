@@ -1,4 +1,5 @@
 import { Black } from "black-engine";
+import { objectsInLayer } from './engine'
 
 
 import bat from 'assets/audio/music/ld44_bat.ogg'
@@ -57,9 +58,49 @@ export default class SoundManager {
     updateLevel(state){
 
         console.log(state)
+
+        this.getdistancefromplayer(state)
     }
 
     createLevel(state){
         console.log("level created")
+        //updateLevel(state)
     }
+    
+    getdistance(x,y,playerpos)
+    {
+        let dx = Math.abs(x - playerpos.x)
+        let dy = Math.abs(y- playerpos.y)
+
+        return dx+dy
+    }
+
+    getdistancefromplayer(state)
+    {
+        console.log(state.player)
+        let playerpos = state.player.pos;
+
+        let distancemap = {};
+
+        for(const [x, y, obj] of objectsInLayer(state.world)) {
+
+            let curdistance = this.getdistance(x,y,playerpos)
+           
+            if(distancemap[obj.type])
+            {
+                if(curdistance < distancemap[obj.type])
+                {
+                    distancemap[obj.type] = curdistance;
+                }
+            }
+            else
+            {
+                distancemap[obj.type] = curdistance;
+            }
+        }
+
+        console.log(distancemap)
+    }
+
+
 }
