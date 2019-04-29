@@ -1,8 +1,8 @@
-import { CanvasDriver, Input, Engine, StageScaleMode } from "black-engine";
+import { CanvasDriver, Input, Engine, StageScaleMode, MasterAudio } from "black-engine";
 import { Game, TILE_SIZE } from "./game";
 
 // Game will be our starting class and rendering will be done on Canvas
-const black = new Engine('container', Game, CanvasDriver, [Input]);
+const black = new Engine('container', Game, CanvasDriver, [Input, MasterAudio]);
 
 // Pause simulation when container loses focus
 black.pauseOnBlur = false;

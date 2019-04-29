@@ -3,6 +3,7 @@ import { Black, GameObject, AssetManager, Key } from 'black-engine';
 
 import LevelManager from './LevelManager'
 import DisplayManager from './DisplayManager'
+import SoundManager from './SoundManager'
 import gameLoop, { Action, initState } from './engine'
 
 import spriteFirefly from 'assets/sprite/lucioles.png'
@@ -24,6 +25,9 @@ export class Game extends GameObject {
         this.levelManager = new LevelManager()
         this.levelManager.enqueueLevels(assets)
 
+        this.soundManager = new SoundManager()
+        this.soundManager.enqueueSounds(assets)
+
         assets.enqueueGoogleFont('Indie Flower')
 
         assets.enqueueAtlas('firefly', spriteFirefly, jsonFirefly);
@@ -38,6 +42,7 @@ export class Game extends GameObject {
         this.displayManager = this.addChild(new DisplayManager())
 
         this.levelManager.onAssetsLoadded()
+        //this.soundManager.onAssetsLoadded()
         this.onNewLevel()
 
         Black.input.on('keyPress', this.onKeyPress, this)
@@ -47,20 +52,23 @@ export class Game extends GameObject {
         let action;
         switch (keyInfo.keyCode) {
             case Key.UP_ARROW:
-            action = Action.UP
-            break
+                action = Action.UP
+                break
             case Key.DOWN_ARROW:
-            action = Action.DOWN
-            break
+                action = Action.DOWN
+                break
             case Key.LEFT_ARROW:
-            action = Action.LEFT
-            break
+                action = Action.LEFT
+                break
             case Key.RIGHT_ARROW:
-            action = Action.RIGHT
-            break
+                action = Action.RIGHT
+                break
             case Key.SPACE:
-            action = Action.SWAP
-            break
+                action = Action.SWAP
+                break
+            case Key.R:
+                this.onNewLevel()
+                break
         }
 
         if(action) {
