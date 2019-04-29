@@ -5,7 +5,7 @@
             "x": 0,
             "y": 0
         },
-        "life": 1,
+        "life": 2,
         "glow": 3
     },
     "world": {
@@ -20,10 +20,19 @@
             "2": {
                 "type": "CRYSTAL",
                 "value": 4,
-                "filled": 2
+                "filled": 2,
+                "doorPos": {
+                    "x": 0,
+                    "y": 3
+                }
             },
             "3": {
-                "type": "DOOR"
+                "type": "DOOR",
+                "opened": false,
+                "crystalsPos": [{
+                    "x": 0,
+                    "y": 2
+                }]
             },
             "4": {
                 "type": "BAT",

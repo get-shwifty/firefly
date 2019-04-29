@@ -40,7 +40,8 @@ const CAN_SWAP = {
 const HANDLE_MOVE = {
     [Tile.GROUND]: moveToSimple,
     [Tile.SPIKE]: moveToSpike,
-    [Tile.CRYSTAL]: moveToCrystal
+    [Tile.CRYSTAL]: moveToCrystal,
+    [Tile.DOOR]: moveToDoor
 }
 
 export default function gameLoop(state, action) {
@@ -57,6 +58,8 @@ export default function gameLoop(state, action) {
     throw 'Unknown action: ' + action
 }
 
+///////////////////////////////////////////////////////////////////////////
+// SWAP
 
 function swap(state) {
     const pos = Victor.fromObject(state.player.pos)
@@ -73,6 +76,9 @@ function swap(state) {
 
     return move(state, 'IDLE')
 }
+
+///////////////////////////////////////////////////////////////////////////
+// MOVE
 
 function move(state, dir) {
     const fromPos = Victor.fromObject(state.player.pos)
@@ -92,7 +98,7 @@ function move(state, dir) {
     return HANDLE_MOVE[toObject.type](state, toPos.toObject(), toObject)
 }
 
-function moveToSimple(state, pos, object) {
+function moveToSimple(state, pos) {
     const player = state.player
     player.pos = pos
 
@@ -101,34 +107,73 @@ function moveToSimple(state, pos, object) {
     }
 }
 
-function moveToSpike(state, pos, object) {
-    const res = moveToSimple(state, pos, object)
+///////////////////////////////////////////////////////////////////////////
+// Spike
+
+function moveToSpike(state, pos, spike) {
+    const res = moveToSimple(state, pos)
     const player = res.player
 
-    player.life -= object.value
+    player.life -= spike.value
 
     return res
 }
 
-function moveToCrystal(state, pos, object) {
-    const res = moveToSimple(state, pos, object)
+///////////////////////////////////////////////////////////////////////////
+// Crystal / doors
+
+function moveToCrystal(state, pos, crystal) {
+    const res = moveToSimple(state, pos)
     const player = res.player
 
-    const glowAdded = Math.min(player.glow, object.maxGlow - object.currentGlow)
+    const glowAdded = Math.min(player.glow, crystal.maxGlow - crystal.currentGlow)
     player.glow -= glowAdded
-    object.currentGlow += glowAdded
+    crystal.currentGlow += glowAdded
 
     res.world = {
         [pos.x]: {
-            [pos.y]: object
+            [pos.y]: crystal
         }
     }
 
-    if(object.currentGlow === object.maxGlow) {
-        // TODO open door if all crystals are full
+    if(crystal.currentGlow === crystal.maxGlow) {
+        const door = _.get(state.world, [crystal.doorPos.x, crystal.doorPos.y])
+        _.merge(res, openDoor(state, crystal.doorPos, door))
     }
 
     return res
+}
+
+function moveToDoor(state, pos, door) {
+    if(!door.opened) {
+        return null
+    }
+
+    return moveToSimple(state, pos)
+}
+
+function openDoor(state, pos, door) {
+    if(door.opened) {
+        return
+    }
+
+    const crystals = door.crystalsPos.map(pos => {
+        return _.get(state.world, [pos.x, pos.y])
+    })
+
+    const open = _.every(crystals, crystal => crystal.currentGlow === crystal.maxGlow)
+
+    if(open) {
+        door.opened = true
+    }
+
+    return {
+        world: {
+            [pos.x]: {
+                [pos.y]: door
+            }
+        }
+    }
 }
 
 export {

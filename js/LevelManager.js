@@ -19,6 +19,7 @@ export default class LevelManager {
     }
 
     onAssetsLoadded() {
+        // Check levels
         for(const level of this.levels) {
             level.obj = Black.assets.getJSON(level.name)
             for(const x in Object.keys(level.obj.world)) {
