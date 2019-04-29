@@ -4,6 +4,7 @@ import { Black, GameObject, AssetManager, Key } from 'black-engine';
 import LevelManager from './LevelManager'
 import DisplayManager from './DisplayManager'
 import SoundManager from './SoundManager'
+import Ui from './ui'
 import gameLoop, { Action, initState } from './engine'
 
 import spriteFirefly from 'assets/sprite/lucioles.png'
@@ -13,8 +14,9 @@ import jsonFirefly from 'assets/sprite/luciole_atlas.json'
 import jsonBat from 'assets/sprite/bat_atlas.json'
 import jsonOther from 'assets/sprite/assets_atlas.json'
 
+export const FONT = 'Indie Flower'
 
-const TILE_SIZE = 200
+export const TILE_SIZE = 200
 
 export class Game extends GameObject {
     constructor() {
@@ -28,7 +30,7 @@ export class Game extends GameObject {
         this.soundManager = new SoundManager()
         this.soundManager.enqueueSounds(assets)
 
-        assets.enqueueGoogleFont('Indie Flower')
+        assets.enqueueGoogleFont(FONT)
 
         assets.enqueueAtlas('firefly', spriteFirefly, jsonFirefly);
         assets.enqueueAtlas('bat', spriteBat, jsonBat);
@@ -40,6 +42,7 @@ export class Game extends GameObject {
 
     onAssetsLoadded(m) {
         this.displayManager = this.addChild(new DisplayManager())
+        this.ui = this.addChild(new Ui())
 
         this.levelManager.onAssetsLoadded()
         this.soundManager.onAssetsLoadded()
@@ -77,6 +80,7 @@ export class Game extends GameObject {
                 console.log(state)
                 this.displayManager.updateLevel(changes.after)
                 this.soundManager.updateLevel(state)
+                this.ui.onStateChanged(this.state)
                 this.state = state
                 this.onStateChanged()
             }
@@ -87,6 +91,7 @@ export class Game extends GameObject {
         this.state = initState(_.cloneDeep(this.levelManager.level))
         this.displayManager.createLevel(this.state)
         this.soundManager.createLevel(this.state)
+        this.ui.onStateChanged(this.state)
     }
 
     onStateChanged() {
@@ -109,8 +114,4 @@ export class Game extends GameObject {
             }
         }
     }
-}
-
-export {
-    TILE_SIZE
 }
