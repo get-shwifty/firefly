@@ -70,10 +70,10 @@ export default class DisplayManager extends GameObject {
         
         // Layer 3 : Light glow
         this.glowDict = {}
-        const glow = this.addChild(new GameObject)
+        this.glow = this.addChild(new GameObject)
         for(const x of Object.keys(level.glow)) {
             for(const y of Object.keys(level.glow[x])) {
-                const glowTile = glow.addChild(new Glow(level.glow[x][y]))
+                const glowTile = this.glow.addChild(new Glow(level.glow[x][y]))
                 glowTile.x = +x * TILE_SIZE
                 glowTile.y = +y * TILE_SIZE
                 this.glowDict['glow_' + x + '_' + y] = glowTile
@@ -102,11 +102,11 @@ export default class DisplayManager extends GameObject {
         if (diff.glow){
             for(const x of Object.keys(diff.glow)) {
                 for(const y of Object.keys(diff.glow[x])) {
-                    console.log(x,y,diff.glow[x][y],this.glowDict['glow_' + x + '_' + y],diff.glow[x][y] || 0)
+                    // console.log(x,y,diff.glow[x][y],this.glowDict['glow_' + x + '_' + y],diff.glow[x][y] || 0)
                     if(this.glowDict['glow_' + x + '_' + y]){
                         this.glowDict['glow_' + x + '_' + y].update(diff.glow[x][y] || 0)
                     } else{
-                        const glowTile = glow.addChild(new Glow(level.glow[x][y]))
+                        const glowTile = this.glow.addChild(new Glow(diff.glow[x][y]))
                         glowTile.x = +x * TILE_SIZE
                         glowTile.y = +y * TILE_SIZE
                         this.glowDict['glow_' + x + '_' + y] = glowTile
@@ -114,7 +114,5 @@ export default class DisplayManager extends GameObject {
                 }
             }
         }
-        console.log(this.glowDict)
-
     }
 }
