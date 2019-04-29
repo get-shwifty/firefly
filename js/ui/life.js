@@ -10,7 +10,7 @@ export default class LifeUI extends GameObject {
   }
   
   onAdded(m) {
-    const logo = this.addChild(new Sprite('life'))
+    const logo = this.addChild(new Sprite('lifeLogo'))
     logo.x = 90
     logo.y = TILE_SIZE / 2
     logo.alignPivot()

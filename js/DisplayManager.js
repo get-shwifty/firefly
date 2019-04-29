@@ -1,4 +1,4 @@
-import { GameObject, Sprite } from "black-engine";
+import { GameObject, Sprite, DisplayObject } from "black-engine";
 import { Tile } from "./engine"
 import Firefly from './display/firefly'
 import Bat from './display/bat'
@@ -6,6 +6,7 @@ import Sunflower from './display/sunflower'
 import Ground from './display/ground'
 import Door from './display/door'
 import Spike from './display/spike'
+import Froggy from './display/froggy'
 import Crystal from './display/crystal'
 import Godrays from './display/godrays'
 import Glow from './display/glow'
@@ -21,6 +22,7 @@ const TILE_CLASS = {
     [Tile.CRYSTAL]: Crystal,
     [Tile.DOOR]: Door,
     [Tile.SPIKE]: Spike,
+    [Tile.FROGGY]: Froggy,
     [Tile.GODRAYS]: Godrays,
     [Tile.EXIT]: Exit
 }
@@ -42,22 +44,25 @@ export default class DisplayManager extends GameObject {
     createLevel(level) {
         this.cleanLevel()
         // Layer 1 : Textures ground
-        const ground = this.addChild(new GameObject)
+        const ground = this.addChild(new DisplayObject)
+        
+        this.glow = this.addChild(new DisplayObject)
+        
         
         // Layer 2 : Creating environment
         this.worldGameObjects = {}
-        const environment = this.addChild(new GameObject)
+        const environment = this.addChild(new DisplayObject)
         for(const x of Object.keys(level.world)) {
             for(const y of Object.keys(level.world[x])) {
                 const CLASS = TILE_CLASS[level.world[x][y].type]
                 if (CLASS){
-
+                    
                     // Adding basic ground texture to layer 1
-                    const groundTile = ground.addChild(new GameObject)
+                    const groundTile = ground.addChild(new DisplayObject)
                     groundTile.x = +x * TILE_SIZE
                     groundTile.y = +y * TILE_SIZE
                     groundTile.addChild(new Sprite('chemin_full'))
-
+                    
                     // New tile at layer 2
                     const newTile = environment.addChild(new CLASS(level.world[x][y]))
                     newTile.x = +x * TILE_SIZE
@@ -71,7 +76,6 @@ export default class DisplayManager extends GameObject {
         
         // Layer 3 : Light glow
         this.glowDict = {}
-        this.glow = this.addChild(new GameObject)
         for(const x of Object.keys(level.glow)) {
             for(const y of Object.keys(level.glow[x])) {
                 const glowTile = this.glow.addChild(new Glow(level.glow[x][y]))
@@ -85,6 +89,8 @@ export default class DisplayManager extends GameObject {
         this.player = this.addChild(new Firefly())
         this.player.updatePosition(level.player.pos.x * TILE_SIZE, level.player.pos.y * TILE_SIZE)
         this.player.update(level.player)
+
+        console.log(this)
     }
     
     updateLevel(diff) {
