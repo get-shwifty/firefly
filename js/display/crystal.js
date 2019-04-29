@@ -19,14 +19,6 @@ export default class Crystal extends GameObject {
   }
 
   onAdded(m) {
-    this.g = this.addChild(new Graphics())
-    const g = this.g
-
-    g.clear()
-    g.lineStyle(1, 0xf9b626);
-    g.rect(this.x, this.y, TILE_SIZE, TILE_SIZE);
-    g.stroke();
-
     this.children = []
     for (let i = 0; i < this.value; i++){
       const crystalType = i < this.filled ? 'allume' : 'eteint'

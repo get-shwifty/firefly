@@ -1,17 +1,18 @@
+
 import { GameObject, Black, AssetManager, Sprite, BlendMode, AnimationController, Graphics, Tween, Ease } from 'black-engine'
 
 import {TILE_SIZE} from '../game'
 
-export default class Godrays extends GameObject {
+export default class Exit extends GameObject {
   constructor() {
     super();
   }
 
   onAdded(m) {
-	  this.sprite = this.addChild(new Sprite('puit_lumiere'));
+    const sprite = new Sprite('sortie');
+    this.addChild(sprite);
   }
 
-  update(){
-  	this.sprite.textureName = 'puit_lumiere_eteint'
+  update(){    
   }
 }

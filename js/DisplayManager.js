@@ -9,6 +9,7 @@ import Spike from './display/spike'
 import Crystal from './display/crystal'
 import Godrays from './display/godrays'
 import Glow from './display/glow'
+import Exit from './display/exit'
 import {TILE_SIZE} from './game.js'
 
 
@@ -20,7 +21,8 @@ const TILE_CLASS = {
     [Tile.CRYSTAL]: Crystal,
     [Tile.DOOR]: Door,
     [Tile.SPIKE]: Spike,
-    [Tile.GODRAYS]: Godrays
+    [Tile.GODRAYS]: Godrays,
+    [Tile.EXIT]: Exit
 }
 
 export default class DisplayManager extends GameObject {
@@ -38,7 +40,6 @@ export default class DisplayManager extends GameObject {
     }
 
     createLevel(level) {
-        console.log(level)
         this.cleanLevel()
         // Layer 1 : Textures ground
         const ground = this.addChild(new GameObject)
@@ -87,7 +88,6 @@ export default class DisplayManager extends GameObject {
     }
     
     updateLevel(diff) {
-        console.log(diff)
         if (diff.player){
             this.player.updatePosition(diff.player.pos.x * TILE_SIZE, diff.player.pos.y * TILE_SIZE)
             this.player.update(diff.player)

@@ -1,0 +1,91 @@
+{
+  "title": "level2_2",
+  "player": {
+    "pos": {
+      "x": 0,
+      "y": 0
+    },
+    "life": 1,
+    "glow": 1
+  },
+  "world": {
+    "0": {
+      "0": {
+        "type": "GROUND"
+      },
+      "1": {
+        "type": "GROUND"
+      }
+    },
+    "1": {
+      "0": {
+        "type": "GROUND"
+      },
+      "1": {
+        "type": "GROUND"
+      }
+    },
+    "2": {
+      "0": {
+        "type": "GODRAYS",
+        "consumed": false
+      },
+      "1": {
+        "type": "GROUND"
+      }
+    },
+    "3": {
+      "0": {
+        "type": "GROUND"
+      },
+      "1": {
+        "type": "BAT",
+        "value": 5
+      },
+      "2": {
+        "type": "SPIKE",
+        "value": 2
+      },
+      "3": {
+        "type": "BAT",
+        "value": 5
+      }
+    },
+    "4": {
+      "0": {
+        "type": "BAT",
+        "value": 5
+      },
+      "1": {
+        "type": "SPIKE",
+        "value": 4
+      },
+      "2": {
+        "type": "GROUND"
+      },
+      "3": {
+        "type": "SPIKE",
+        "value": 4
+      }
+    },
+    "5": {
+      "0": {
+        "type": "GODRAYS",
+        "consumed": false
+      },
+      "1": {
+        "type": "BAT",
+        "value": 5
+      },
+      "2": {
+        "type": "SPIKE",
+        "value": 4
+      },
+      "3": {
+        "type": "BAT",
+        "value": 5
+      }
+      
+    }
+  }
+}

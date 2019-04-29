@@ -1,12 +1,12 @@
 {
-  "title": "level1_1",
+  "title": "level1_6",
   "player": {
     "pos": {
       "x": 0,
       "y": 0
     },
-    "life": 2,
-    "glow": 5
+    "life": 3,
+    "glow": 1
   },
   "world": {
     "0": {
@@ -17,12 +17,22 @@
     "1": {
       "0": {
         "type": "GROUND"
+      },
+      "1":{
+        "type": "GROUND"  
+      },
+      "2":{
+        "type": "GROUND"  
       }
     },
     "2": {
       "0": {
         "type": "SPIKE",
-        "value": 1
+        "value": 2
+      },
+      "2" : {
+        "type": "GODRAYS",
+        "consumed": false  
       }
     },
     "3": {
@@ -32,7 +42,8 @@
     },
     "4": {
       "0": {
-        "type": "GROUND"
+        "type": "SPIKE",
+        "value": 1
       }
     },
     "5": {

@@ -1,0 +1,46 @@
+{
+  "title": "level1_7",
+  "player": {
+    "pos": {
+      "x": 0,
+      "y": 0
+    },
+    "life": 2,
+    "glow": 3
+  },
+  "world": {
+    "0": {
+      "0": {
+        "type": "GROUND"
+      },
+      "1":{
+        "type": "GROUND"  
+      },
+      "2":{
+        "type": "BAT",
+        "value": 3
+      }
+    },
+    "1": {
+      "0": {
+        "type": "SPIKE",
+        "value": 3
+      },
+      "2":{
+        "type": "GROUND"  
+      }
+    },
+    "2": {
+      "0": {
+        "type": "EXIT"
+      },
+      "1" : {
+        "type": "GROUND"
+      },
+      "2": {
+        "type": "BAT",
+        "value": 3 
+      }
+    }
+  }
+}

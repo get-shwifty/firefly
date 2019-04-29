@@ -17,7 +17,8 @@ export const Tile = {
     DOOR: 'DOOR',
     SUNFLOWER: 'SUNFLOWER',
     BAT: 'BAT',
-    GODRAYS: 'GODRAYS'
+    GODRAYS: 'GODRAYS',
+    EXIT: 'EXIT'
 }
 
 export const MAX_LIFE = 5
@@ -38,7 +39,8 @@ const CAN_SWAP = {
     [Tile.DOOR]: true,
     [Tile.SUNFLOWER]: false,
     [Tile.BAT]: false,
-    [Tile.GODRAYS]: true
+    [Tile.GODRAYS]: true,
+    [Tile.EXIT]: false
 }
 
 const HANDLE_MOVE = {
@@ -48,7 +50,8 @@ const HANDLE_MOVE = {
     [Tile.DOOR]: moveToDoor,
     [Tile.SUNFLOWER]: moveToSunflower,
     [Tile.BAT]: moveToBat,
-    [Tile.GODRAYS]: moveToGodrays
+    [Tile.GODRAYS]: moveToGodrays,
+    [Tile.EXIT]: moveToExit
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -90,7 +93,7 @@ export default function gameLoop(previousState, action) {
     return returnDiff(state)
 }
 
-function *objectsInState(state, layer) {
+export function* objectsInState(state, layer) {
     if(!state[layer]) {
         return
     }
@@ -101,14 +104,28 @@ function *objectsInState(state, layer) {
     }
 }
 
+export function* objectsInLayer(layer) {
+    if(!layer) {
+        return
+    }
+    for(const x of Object.keys(layer)) {
+        for(const y of Object.keys(layer[x])) {
+            yield [x, y, layer[x][y]]
+        }
+    }
+}
+
 function stateChanges(oldState, newState) {
     const diff = {
         before: {},
         after: {}
     }
-    if(!_.isEqual(oldState.player, newState.player)) {
-        diff.before.player = oldState.player
-        diff.after.player = newState.player
+
+    function diffProperty(property) {
+        if(!_.isEqual(oldState[property], newState[property])) {
+            diff.before[property] = oldState[property]
+            diff.after[property] = newState[property]
+        }
     }
 
     function diffLayer(layer) {
@@ -130,6 +147,8 @@ function stateChanges(oldState, newState) {
         }
     }
 
+    diffProperty('win')
+    diffProperty('player')
     diffLayer('world')
     diffLayer('glow')
 
@@ -180,6 +199,14 @@ function moveToSimple(state, pos) {
     const player = state.player
     player.pos = pos
     return true
+}
+
+///////////////////////////////////////////////////////////////////////////
+// SPIKE
+
+function moveToExit(state, pos, exit) {
+    moveToSimple(state, pos)
+    state.win = true
 }
 
 ///////////////////////////////////////////////////////////////////////////
