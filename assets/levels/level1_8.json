@@ -1,0 +1,98 @@
+{
+  "title": "level1_8",
+  "player": {
+    "pos": {
+      "x": 0,
+      "y": 0
+    },
+    "life": 3,
+    "glow": 2
+  },
+  "world": {
+    "0": {
+      "0": {
+        "type": "GROUND"  
+      },
+      "1":{
+        "type": "GROUND"  
+      },
+      "2":{
+        "type": "GROUND"  
+      },
+      "3":{
+        "type": "BAT",
+        "value": 3 
+      }
+    },
+    "1": {
+      "0": {
+        "type": "SPIKE",
+        "value": 2 
+      },
+      "3" : {
+        "type": "GROUND"
+      }
+    },
+    "2":{
+      "0": {
+        "type": "GROUND"
+      },
+      "1" : {
+        "type": "GROUND"
+      },
+      "2" : {
+        "type": "GROUND"
+      },
+      "3" : {
+       "type": "SPIKE",
+        "value": 1
+      } 
+    },
+    "3":{
+      "0": {
+        "type": "SPIKE",
+        "value": 1
+      },
+      "1" : {
+        "type": "GROUND"
+      },
+      "2" : {
+        "type": "GROUND"
+      },
+      "3" : {
+       "type": "GROUND"
+      } 
+    },
+    "4":{
+      "0": {
+        "type": "GROUND"
+      },
+      "1" : {
+        "type": "SPIKE",
+        "value": 1
+      },
+      "2" : {
+        "type": "GROUND"
+      },
+      "3" : {
+       "type": "BAT",
+        "value": 5
+      } 
+    },
+    "5":{
+      "-1": {
+        "type": "GODRAYS",
+        "consumed": false
+      },
+      "0" : {
+        "type": "GROUND"
+      },
+      "1" : {
+        "type": "GROUND"
+      },
+      "3" : {
+       "type": "GROUND"
+      } 
+    }
+  }
+}

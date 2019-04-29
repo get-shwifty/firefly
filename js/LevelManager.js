@@ -1,7 +1,7 @@
 import { Black } from "black-engine";
 import { objectsInLayer } from './engine'
 
-import level1_1 from 'assets/levels/level1_1.json'
+import level1_1 from 'assets/levels/level1_8.json'
 
 const LEVELS = [
     ['level1_1', level1_1]
