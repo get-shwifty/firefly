@@ -10,13 +10,6 @@ export default class Sunflower extends GameObject {
   }
 
   onAdded(m) {
-    this.g = this.addChild(new Graphics())
-    const g = this.g
-    g.clear()
-    g.lineStyle(1, 0xf9b626);
-    g.rect(this.x, this.y, TILE_SIZE, TILE_SIZE);
-    g.stroke();
-
     if(this.up){
       var sprite = new Sprite('fleur_4');
     } else {
