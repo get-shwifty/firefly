@@ -13,6 +13,9 @@ import spriteOthers from 'assets/sprite/assets_atlas.png'
 import jsonFirefly from 'assets/sprite/luciole_atlas.json'
 import jsonBat from 'assets/sprite/bat_atlas.json'
 import jsonOther from 'assets/sprite/assets_atlas.json'
+import life from "assets/sprite/life.png"
+import glow from "assets/sprite/light.png"
+
 
 export const FONT = 'Indie Flower'
 
@@ -38,6 +41,9 @@ export class Game extends GameObject {
         assets.enqueueAtlas('firefly', spriteFirefly, jsonFirefly);
         assets.enqueueAtlas('bat', spriteBat, jsonBat);
         assets.enqueueAtlas('other', spriteOthers, jsonOther);
+
+        assets.enqueueImage('life', life);
+        assets.enqueueImage('glow', glow);
 
         assets.on('complete', this.onAssetsLoadded, this)
         assets.loadQueue()
@@ -83,8 +89,6 @@ export class Game extends GameObject {
             if(!_.isEmpty(changes.after)) {
                 console.log(state)
                 this.displayManager.updateLevel(changes.after)
-                this.soundManager.updateLevel(state)
-                this.ui.onStateChanged(this.state)
                 this.state = state
                 this.onStateChanged()
             }
@@ -100,25 +104,28 @@ export class Game extends GameObject {
     }
 
     onStateChanged() {
-        this.updateCamera()
-        const player = this.state.player
-        
-        // Manage death
-        if(player.life <= 0) {
-            // TODO animate ?
-            this.onNewLevel()
-        }
+      this.updateCamera()
+      this.soundManager.updateLevel(this.state)
+      this.ui.onStateChanged(this.state)
 
-        if(this.state.win) {
-            const finished = this.levelManager.next()
-            if(finished) {
-                // TODO
-                console.log('END OF THE GAME TODO')
-                this.onNewLevel() // tmp
-            } else {
-                this.onNewLevel()
-            }
-        }
+      const player = this.state.player
+      
+      // Manage death
+      if(player.life <= 0) {
+          // TODO animate ?
+          this.onNewLevel()
+      }
+
+      if(this.state.win) {
+          const finished = this.levelManager.next()
+          if(finished) {
+              // TODO
+              console.log('END OF THE GAME TODO')
+              this.onNewLevel() // tmp
+          } else {
+              this.onNewLevel()
+          }
+      }
     }
 
     initCamera() {
