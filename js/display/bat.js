@@ -14,7 +14,7 @@ export default class Bat extends GameObject {
   constructor(bat) {
     super();
     this.value = bat.value
-    this.visible = bat.visible;
+    this.nbAwake = bat.nbAwake;
   }
   
   onAdded(m) {    
@@ -23,27 +23,19 @@ export default class Bat extends GameObject {
     for (let i = 0; i < this.value; i++){
       this.flyingBat.push(this.createAnimation(TILE_SIZE * POS[i].x, TILE_SIZE * POS[i].y))
       // this.sleepingBat.push(this.addChild(new Sprite('bat_hidden')))
-      if (i < this.visible){
-        this.flyingBat[i].visible = true
-        // this.sleepingBat[i].visible = false
-      }else{
-        this.flyingBat[i].visible = false
-        // this.sleepingBat[i].visible = false
-      }
     }
+    this.updateVisibility()
   }
 
   update(bat){
-    this.value = bat.value
-    this.visible = bat.visible
+    // this.value = bat.value // Cant change
+    this.nbAwake = bat.nbAwake
+    this.updateVisibility()
+  }
+
+  updateVisibility() {
     for (let i = 0; i < this.value; i++){
-      if (i < this.visble){
-        this.flyingBat[i].visible = true
-        // this.sleepingBat[i].visible = false
-      }else{
-        this.flyingBat[i].visible = false
-        // this.sleepingBat[i].visible = false
-      }
+      this.flyingBat[i].visible = i < this.nbAwake
     }
   }
 

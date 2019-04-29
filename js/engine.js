@@ -20,7 +20,8 @@ export const Tile = {
     GODRAYS: 'GODRAYS'
 }
 
-
+export const MAX_LIFE = 5
+export const MAX_GLOW = 5
 
 const DIRECTION = {
     IDLE: Victor.fromObject({ x: 0, y: 0 }),
@@ -36,7 +37,8 @@ const CAN_SWAP = {
     [Tile.CRYSTAL]: true,
     [Tile.DOOR]: true,
     [Tile.SUNFLOWER]: false,
-    [Tile.BAT]: false
+    [Tile.BAT]: false,
+    [Tile.GODRAYS]: true
 }
 
 const HANDLE_MOVE = {
@@ -45,11 +47,8 @@ const HANDLE_MOVE = {
     [Tile.CRYSTAL]: moveToCrystal,
     [Tile.DOOR]: moveToDoor,
     [Tile.SUNFLOWER]: moveToSunflower,
-    [Tile.BAT]: moveToBat
-}
-
-const GLOW_PROPERTY = {
-    [Tile.CRYSTAL]: 'currentGlow'
+    [Tile.BAT]: moveToBat,
+    [Tile.GODRAYS]: moveToGodrays
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -115,7 +114,7 @@ function stateChanges(oldState, newState) {
     function diffLayer(layer) {
         // Check removed objects
         for(const [x, y, oldObject] of objectsInState(oldState, layer)) {
-            if(!_.get(newState.world, [x, y])) {
+            if(!_.get(newState[layer], [x, y])) {
                 _.setWith(diff.before, [layer, x, y], oldObject, Object)
                 _.setWith(diff.after, [layer, x, y], null, Object)
             }
@@ -123,7 +122,7 @@ function stateChanges(oldState, newState) {
 
         // Check updated objects
         for(const [x, y, newObject] of objectsInState(newState, layer)) {
-            const oldObject = _.get(oldState.world, [x, y], null)
+            const oldObject = _.get(oldState[layer], [x, y], null)
             if(!_.isEqual(oldObject, newObject)) {
                 _.setWith(diff.before, [layer, x, y], oldObject, Object)
                 _.setWith(diff.after, [layer, x, y], newObject, Object)
@@ -200,15 +199,15 @@ function moveToCrystal(state, pos, crystal) {
     moveToSimple(state, pos)
     const player = state.player
 
-    const glowAdded = Math.min(player.glow, crystal.maxGlow - crystal.currentGlow)
+    const glowAdded = Math.min(player.glow, crystal.value - crystal.filled)
     if(glowAdded === 0) {
         return false
     }
 
     player.glow -= glowAdded
-    crystal.currentGlow += glowAdded
+    crystal.filled += glowAdded
 
-    if(crystal.currentGlow === crystal.maxGlow) {
+    if(crystal.filled === crystal.value) {
         const door = _.get(state.world, [crystal.doorPos.x, crystal.doorPos.y])
         openDoor(state, crystal.doorPos, door)
     }
@@ -230,7 +229,7 @@ function openDoor(state, pos, door) {
     }
 
     const crystals = door.crystalsPos.map(pos => _.get(state.world, [pos.x, pos.y]))
-    const open = _.every(crystals, crystal => crystal.currentGlow === crystal.maxGlow)
+    const open = _.every(crystals, crystal => crystal.filled === crystal.value)
 
     if(open) {
         door.opened = true
@@ -243,7 +242,9 @@ function openDoor(state, pos, door) {
 // SUNFLOWER
 
 function moveToSunflower(state, pos, sunflower) {
-    
+    if(sunflower.nbUp >= sunflower.value) {
+        return false
+    }
 
     return moveToSimple(state, pos)
 }
@@ -252,9 +253,26 @@ function moveToSunflower(state, pos, sunflower) {
 // BAT
 
 function moveToBat(state, pos, bat) {
-    
+    moveToSimple(state, pos)
+    const player = state.player
+    player.life -= bat.nbAwake
+    return true
+}
 
-    return moveToSimple(state, pos)
+///////////////////////////////////////////////////////////////////////////
+// GODRAYS
+
+function moveToGodrays(state, pos, godrays) {
+    moveToSimple(state, pos)
+    if(!godrays.consumed) {
+        const player = state.player
+        if(player.glow < MAX_GLOW) {
+            player.glow = MAX_GLOW
+            godrays.consumed = true
+        }
+    }
+
+    return true
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -267,9 +285,22 @@ function applyGlow(state) {
     state.glow = {}
     setGlowAt(state, player.pos.x, player.pos.y, player.glow + 1)
     for(const [x, y, object] of objectsInState(state, 'world')) {
-        const prop = GLOW_PROPERTY[object.type]
-        if(prop) {
-            setGlowAt(state, x, y, object[prop])
+        switch(object.type) {
+            case Tile.CRYSTAL:
+                if(!object.filled > 0) {
+                    setGlowAt(state, x, y, object.filled)
+                }
+                break
+            case Tile.GODRAYS:
+                if(!object.consumed) {
+                    setGlowAt(state, x, y, 6)
+                }
+                break
+            // Init glow for bats and sunflowers
+            case Tile.BAT:
+            case Tile.SUNFLOWER:
+                applyGlowToObject(object, 0)
+                break
         }
     }
 
@@ -277,6 +308,17 @@ function applyGlow(state) {
     for(const [x, y, glow] of objectsInState(state, 'glow')) {
         const object = _.get(state.world, [x, y])
         applyGlowToObject(object, glow)
+    }
+}
+
+function applyGlowToObject(object, glow) {
+    switch(object.type) {
+        case Tile.BAT:
+            object.nbAwake = Math.max(0, object.value - glow)
+            break
+        case Tile.SUNFLOWER:
+            object.nbUp = Math.min(glow, object.value)
+            break
     }
 }
 
@@ -327,14 +369,5 @@ function setGlowAt(state, x, y, glow) {
                 }
             })
         }
-    }
-}
-
-function applyGlowToObject(object, glow) {
-    switch(object.type) {
-        case Tile.BAT:
-        case Tile.SUNFLOWER:
-            object.glow = glow
-            break
     }
 }

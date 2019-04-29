@@ -36,16 +36,47 @@
             },
             "4": {
                 "type": "BAT",
-                "value": 3,
-                "visible": 3
+                "value": 3
             },
             "5": {
                 "type": "SUNFLOWER",
-                "value": 3,
-                "up": false
-            },
-            "6": {
-                "type": "GODRAYS"
+                "value": 3
+            }
+        },
+        "1": {
+            "0": {
+                "type": "GROUND"
+            }
+        },
+        "2": {
+            "0": {
+                "type": "GROUND"
+            }
+        },
+        "3": {
+            "0": {
+                "type": "GROUND"
+            }
+        },
+        "4": {
+            "0": {
+                "type": "GROUND"
+            }
+        },
+        "5": {
+            "0": {
+                "type": "GROUND"
+            }
+        },
+        "6": {
+            "0": {
+                "type": "GROUND"
+            }
+        },
+        "7": {
+            "0": {
+                "type": "GODRAYS",
+                "consumed": false
             }
         }
     }
