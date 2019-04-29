@@ -1,0 +1,103 @@
+{
+  "title": "level2_5",
+  "player": {
+    "pos": {
+      "x": 0,
+      "y": 4
+    },
+    "life": 5,
+    "glow": 1
+  },
+  "world": {
+    "0":{
+        "4":{
+            "type": "GROUND"
+        }
+    },
+    "1": {
+       "4":{
+            "type": "GROUND"
+        }
+    },
+    "2":{
+       "4":{
+            "type": "GROUND"
+        }
+    },
+    "3":{
+        "0":{
+            "type": "GODRAYS",
+            "consumed": false   
+        },
+        "1" : {
+            "type": "GROUND"
+        },
+        "2" : {
+            "type": "DOOR",
+            "opened": false,
+            "crystalsPos": [
+            {"x": 3,"y": 3}] 
+        },
+        "3" : {
+            "type": "CRYSTAL",
+            "value": 3,
+            "filled": 0,
+            "doorPos": {
+            "x": 3,
+            "y": 2}
+        },
+        "4" : {
+            "type": "GROUND"
+        }
+    },
+    "4":{
+        "4":{
+           "type": "GROUND" 
+        },
+        "5":{
+           "type": "CRYSTAL",
+            "value": 3,
+            "filled": 0,
+            "doorPos": {
+            "x": 4,
+            "y": 6}     
+        },
+        "6":{
+            "type": "DOOR",
+            "opened": false,
+            "crystalsPos": [
+            {"x": 4,"y": 5}]   
+        },
+        "7":{
+            "type": "GROUND"  
+        },
+        "8" : {
+            "type": "GODRAYS",
+            "consumed": false     
+        }
+    },
+    "5":{
+        "4":{
+            "type": "BAT",
+            "value": 4
+        }
+    },
+    "6":{
+        "4":{
+            "type": "SUNFLOWER",
+            "value": 5 
+        }
+    },
+    "7":{
+        "4":{
+            "type": "SPIKE",
+            "value": 4
+        }
+    },
+    "8":{
+        "4":{
+            "type": "EXIT"
+        }
+    }
+}
+}

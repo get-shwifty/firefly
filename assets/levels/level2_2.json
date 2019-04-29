@@ -61,7 +61,7 @@
         "value": 4
       },
       "2": {
-        "type": "GROUND"
+        "type": "EXIT"
       },
       "3": {
         "type": "SPIKE",
