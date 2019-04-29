@@ -239,7 +239,9 @@ function openDoor(state, pos, door) {
 // SUNFLOWER
 
 function moveToSunflower(state, pos, sunflower) {
-    
+    if(sunflower.nbUp >= sunflower.value) {
+        return false
+    }
 
     return moveToSimple(state, pos)
 }
@@ -248,9 +250,10 @@ function moveToSunflower(state, pos, sunflower) {
 // BAT
 
 function moveToBat(state, pos, bat) {
-    
-
-    return moveToSimple(state, pos)
+    moveToSimple(state, pos)
+    const player = state.player
+    player.life -= bat.nbAwake
+    return true
 }
 
 ///////////////////////////////////////////////////////////////////////////
