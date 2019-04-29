@@ -4,10 +4,10 @@ import {TILE_SIZE} from '../game'
 const MAX = 5
 const POS = [
         { x: 0.5, y: 0.5},
-        { x: 0.20, y: 0.20},
-        { x: 0.80, y: 0.20},
-        { x: 0.80, y: 0.80},
-        { x: 0.20, y: 0.80},
+        { x: 0.20, y: 0.25},
+        { x: 0.80, y: 0.25},
+        { x: 0.80, y: 0.75},
+        { x: 0.20, y: 0.75},
     ]
 
 export default class Bat extends GameObject {
@@ -43,6 +43,7 @@ export default class Bat extends GameObject {
     var sprite = new Sprite();
 
     sprite.blendMode = BlendMode.ADD;
+    console.log(x,y)
     sprite.x = x;
     sprite.y = y;
 
@@ -56,7 +57,7 @@ export default class Bat extends GameObject {
     this.anim.play('anim');
 
     sprite.alignPivot();
-    sprite.scale = 0.3
+    sprite.scale = 0.4
 
     this.addChild(sprite);
 
