@@ -52,20 +52,23 @@ export class Game extends GameObject {
         let action;
         switch (keyInfo.keyCode) {
             case Key.UP_ARROW:
-            action = Action.UP
-            break
+                action = Action.UP
+                break
             case Key.DOWN_ARROW:
-            action = Action.DOWN
-            break
+                action = Action.DOWN
+                break
             case Key.LEFT_ARROW:
-            action = Action.LEFT
-            break
+                action = Action.LEFT
+                break
             case Key.RIGHT_ARROW:
-            action = Action.RIGHT
-            break
+                action = Action.RIGHT
+                break
             case Key.SPACE:
-            action = Action.SWAP
-            break
+                action = Action.SWAP
+                break
+            case Key.R:
+                this.onNewLevel()
+                break
         }
 
         if(action) {
@@ -73,6 +76,7 @@ export class Game extends GameObject {
             if(!_.isEmpty(changes.after)) {
                 console.log(state)
                 this.displayManager.updateLevel(changes.after)
+                this.soundManager.updateLevel(state)
                 this.state = state
                 this.onStateChanged()
             }
@@ -82,6 +86,7 @@ export class Game extends GameObject {
     onNewLevel() {
         this.state = initState(_.cloneDeep(this.levelManager.level))
         this.displayManager.createLevel(this.state)
+        this.soundManager.createLevel(this.state)
     }
 
     onStateChanged() {
@@ -92,9 +97,17 @@ export class Game extends GameObject {
             // TODO animate ?
             this.onNewLevel()
         }
-        
-        // TODO next level
-        // TODO end game
+
+        if(this.state.win) {
+            const finished = this.levelManager.next()
+            if(finished) {
+                // TODO
+                console.log('END OF THE GAME TODO')
+                this.onNewLevel() // tmp
+            } else {
+                this.onNewLevel()
+            }
+        }
     }
 }
 

@@ -69,5 +69,10 @@
     {
         "type": "GODRAYS",
         "consumed": false
+    },
+
+    "exit":
+    {
+        "type": "EXIT"
     }
 }

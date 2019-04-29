@@ -1,7 +1,7 @@
 import { GameObject, Black, Sprite, BlendMode, AnimationController, Graphics, Tween, Ease } from 'black-engine'
 
 import {TILE_SIZE} from '../game'
-
+const COLOR_CODE = 0xfffad2 
 export default class Glow extends GameObject {
   constructor(glow) {
     super();
@@ -14,7 +14,7 @@ export default class Glow extends GameObject {
     const alpha = this.value * 0.1
     // console.log(this.value,alpha)
     g.clear()
-    g.fillStyle(0xffffff,alpha);
+    g.fillStyle(COLOR_CODE,alpha);
     g.rect(0, 0, TILE_SIZE, TILE_SIZE);
     g.fill();
   }
@@ -25,7 +25,7 @@ export default class Glow extends GameObject {
     const alpha = this.value * 0.1
     // console.log(glow,alpha)
     g.clear()
-    g.fillStyle(0xffffff,alpha);
+    g.fillStyle(COLOR_CODE,alpha);
     g.rect(0, 0, TILE_SIZE, TILE_SIZE);
     g.fill();
   }
