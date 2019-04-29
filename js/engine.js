@@ -20,7 +20,8 @@ export const Tile = {
     GODRAYS: 'GODRAYS'
 }
 
-
+export const MAX_LIFE = 5
+export const MAX_GLOW = 5
 
 const DIRECTION = {
     IDLE: Victor.fromObject({ x: 0, y: 0 }),
@@ -36,7 +37,8 @@ const CAN_SWAP = {
     [Tile.CRYSTAL]: true,
     [Tile.DOOR]: true,
     [Tile.SUNFLOWER]: false,
-    [Tile.BAT]: false
+    [Tile.BAT]: false,
+    [Tile.GODRAYS]: true
 }
 
 const HANDLE_MOVE = {
@@ -45,7 +47,8 @@ const HANDLE_MOVE = {
     [Tile.CRYSTAL]: moveToCrystal,
     [Tile.DOOR]: moveToDoor,
     [Tile.SUNFLOWER]: moveToSunflower,
-    [Tile.BAT]: moveToBat
+    [Tile.BAT]: moveToBat,
+    [Tile.GODRAYS]: moveToGodrays
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -253,6 +256,22 @@ function moveToBat(state, pos, bat) {
     moveToSimple(state, pos)
     const player = state.player
     player.life -= bat.nbAwake
+    return true
+}
+
+///////////////////////////////////////////////////////////////////////////
+// GODRAYS
+
+function moveToGodrays(state, pos, godrays) {
+    moveToSimple(state, pos)
+    if(!godrays.consumed) {
+        const player = state.player
+        if(player.glow < MAX_GLOW) {
+            player.glow = MAX_GLOW
+            godrays.consumed = true
+        }
+    }
+
     return true
 }
 
