@@ -53,6 +53,5 @@ class UiPanel extends GameObject {
         this.life.update(state.player.life)
         this.glow.update(state.player.glow)
         this.levelName.text = state.title
-        console.log(state)
      }
 }

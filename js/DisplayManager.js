@@ -40,7 +40,6 @@ export default class DisplayManager extends GameObject {
     }
 
     createLevel(level) {
-        console.log(level)
         this.cleanLevel()
         // Layer 1 : Textures ground
         const ground = this.addChild(new GameObject)
@@ -89,7 +88,6 @@ export default class DisplayManager extends GameObject {
     }
     
     updateLevel(diff) {
-        console.log(diff)
         if (diff.player){
             this.player.updatePosition(diff.player.pos.x * TILE_SIZE, diff.player.pos.y * TILE_SIZE)
             this.player.update(diff.player)

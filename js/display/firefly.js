@@ -1,4 +1,4 @@
-import { GameObject, Black, AssetManager, Sprite, BlendMode, AnimationController, Graphics, Tween, Ease } from 'black-engine'
+import { GameObject, Black, AssetManager, Sprite, VectorScatter, InitialVelocity, Acceleration, ScaleOverLife, BlendMode, AnimationController, Graphics, Tween, Ease, Emitter, FloatScatter, InitialLife  } from 'black-engine'
 
 import {TILE_SIZE} from '../game'
 const POS = [
@@ -8,7 +8,7 @@ const POS = [
         { x: 0.80, y: 0.80},
         { x: 0.20, y: 0.80},
     ]
-
+const speeds = [1.5, 1, 2, 0.5, 0.3]
 export default class Firefly extends GameObject {
   constructor() {
     super();
@@ -28,16 +28,72 @@ export default class Firefly extends GameObject {
     this.glow = player.glow 
     //Affichage ou suppression des libellules en fonction de la vie 
     for (let i = 0; i < 5; i++){
-        this.children[i].visible = i < this.life;
+        this.fireflies[i].visible = i < this.life;
+        this.emitters[i].addModifier(new ScaleOverLife(new FloatScatter(0.05 * this.glow, 0, Ease.backIn)),)
+        this.emitters[i].alpha = i < this.life;
     }
 
   }
 
   onAdded(m) {
-    this.children = []
+    this.fireflies = []
+    this.emitters = []
     for (let i = 0; i < 5; i++){
-        this.children.push(this.createAnimation(TILE_SIZE*POS[i].x, TILE_SIZE*POS[i].y))
+        this.fireflies.push(this.createAnimation(TILE_SIZE*POS[i].x, TILE_SIZE*POS[i].y))
+        this.emitters.push(this.createEmitter())
     }
+  }
+
+  onUpdate(){
+    if(this.fireflies.length == 5 && this.emitters.length == 5)
+    {
+      const dt =  Black.time.now
+      this.updateFireflies(dt)
+    }
+    else return
+  }
+
+  updateFireflies(dt){
+    this.fireflies.forEach((_, i) => {
+      const dir = i%2 == 0 ? 1 : -1
+      const newPosX = dir * Math.cos(dt * speeds[i]) * TILE_SIZE / 3 + TILE_SIZE / 2
+      const newPosY = dir * Math.sin(2*dt * speeds[i]) * TILE_SIZE / 3 + TILE_SIZE / 2
+      this.fireflies[i].x = newPosX
+      this.fireflies[i].y = newPosY
+      this.emitters[i].x = newPosX
+      this.emitters[i].y = newPosY
+    })
+  }
+
+  createEmitter(){
+    let texture = Black.assets.getTextures('particle_firefly');
+    let emitter = new Emitter();
+     // Zero all default values since we dont need any particles at the start
+    emitter.emitCount = new FloatScatter(0.1);
+    emitter.emitDelay = new FloatScatter(0);
+    emitter.emitInterval = new FloatScatter(0);
+
+    emitter.space = this
+    // Pick a texture for emitting
+    emitter.textures = texture;
+
+    emitter.add(
+      // No one lives forever
+      new InitialLife(0.25),
+
+      // Initialize every particles with a random velocity inside a box
+      new InitialVelocity(new VectorScatter(-100, -100, 100, 100)),
+
+      // Make particles small over life
+      new ScaleOverLife(new FloatScatter(0.02 * this.glow, 0, Ease.backIn)),
+
+      // Give some acceleration is all directions
+      new Acceleration(new VectorScatter(-20, -20, 20, 20)),
+    );
+ 
+    // Add to scene
+    this.addChild(emitter);
+    return emitter
   }
 
   createAnimation(x, y) {
@@ -59,11 +115,11 @@ export default class Firefly extends GameObject {
     sprite.alignPivot();
     sprite.scale = 0.3
 
-    //Rotation des lucioles
-    let tween = new Tween({ rotation: 2 * Math.PI }, 4, { ease: Ease.linear });
-    // Set loop to true
-    tween.loop = true;
-    sprite.addComponent(tween);
+    // //Rotation des lucioles
+    // let tween = new Tween({ rotation: 2 * Math.PI }, 4, { ease: Ease.linear });
+    // // Set loop to true
+    // tween.loop = true;
+    // sprite.addComponent(sprite);
 
     this.addChild(sprite);
 
