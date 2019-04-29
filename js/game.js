@@ -80,6 +80,7 @@ export class Game extends GameObject {
                 console.log(state)
                 this.displayManager.updateLevel(changes.after)
                 this.soundManager.updateLevel(state)
+                this.ui.onStateChanged(this.state)
                 this.state = state
                 this.onStateChanged()
             }
@@ -90,6 +91,7 @@ export class Game extends GameObject {
         this.state = initState(_.cloneDeep(this.levelManager.level))
         this.displayManager.createLevel(this.state)
         this.soundManager.createLevel(this.state)
+        this.ui.onStateChanged(this.state)
     }
 
     onStateChanged() {
