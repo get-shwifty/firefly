@@ -22,8 +22,8 @@ export default class LevelManager {
         // Check levels
         for(const level of this.levels) {
             level.obj = Black.assets.getJSON(level.name)
-            for(const x in Object.keys(level.obj.world)) {
-                for(const y in Object.keys(level.obj.world[x])) {
+            for(const x of Object.keys(level.obj.world)) {
+                for(const y of Object.keys(level.obj.world[x])) {
                     const obj = level.obj.world[x][y]
                     obj.id = 'world_' + x + '_' + y
                 }

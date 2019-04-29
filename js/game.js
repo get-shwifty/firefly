@@ -3,7 +3,7 @@ import { Black, GameObject, AssetManager, Key } from 'black-engine';
 
 import LevelManager from './LevelManager'
 import DisplayManager from './DisplayManager'
-import gameLoop, { Action } from './engine'
+import gameLoop, { Action, initState } from './engine'
 
 import spriteFirefly from 'assets/sprite/lucioles.png'
 import spriteBat from 'assets/sprite/bats.png'
@@ -64,17 +64,18 @@ export class Game extends GameObject {
         }
 
         if(action) {
-            const diff = gameLoop(this.state, action)
-            if(diff) {
-                this.displayManager.updateLevel(diff)
-                _.merge(this.state, diff)
+            const { state, changes } = gameLoop(this.state, action)
+            if(!_.isEmpty(changes.after)) {
+                console.log(state)
+                this.displayManager.updateLevel(changes.after)
+                this.state = state
                 this.onStateChanged()
             }
         }
     }
 
     onNewLevel() {
-        this.state = _.cloneDeep(this.levelManager.level)
+        this.state = initState(_.cloneDeep(this.levelManager.level))
         this.displayManager.createLevel(this.state)
     }
 
