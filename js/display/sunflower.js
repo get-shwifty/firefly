@@ -31,6 +31,7 @@ export default class Sunflower extends GameObject {
     }else if(!this.up && flower.up){
       this.flowerAnimateUp()    
     }
+    this.up = flower.up
   }
 
   createAnimation(sprite) {

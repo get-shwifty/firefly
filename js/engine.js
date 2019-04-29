@@ -15,7 +15,8 @@ const Tile = {
     CRYSTAL: 'CRYSTAL',
     DOOR: 'DOOR',
     SUNFLOWER: 'SUNFLOWER',
-    BAT: 'BAT'
+    BAT: 'BAT',
+    GODRAYS: 'GODRAYS'
 }
 
 

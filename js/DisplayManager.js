@@ -7,6 +7,7 @@ import Ground from './display/ground'
 import Door from './display/door'
 import Spike from './display/spike'
 import Crystal from './display/crystal'
+import Godrays from './display/godrays'
 import {TILE_SIZE} from './game.js'
 
 
@@ -17,7 +18,8 @@ const TILE_CLASS = {
     [Tile.SUNFLOWER]: Sunflower,
     [Tile.CRYSTAL]: Crystal,
     [Tile.DOOR]: Door,
-    [Tile.SPIKE]: Spike
+    [Tile.SPIKE]: Spike,
+    [Tile.GODRAYS]: Godrays
 }
 
 export default class DisplayManager extends GameObject {

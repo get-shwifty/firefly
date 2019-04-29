@@ -19,8 +19,8 @@
             },
             "2": {
                 "type": "CRYSTAL",
-                "value": 4,
-                "filled": 2,
+                "value": 2,
+                "filled": 0,
                 "doorPos": {
                     "x": 0,
                     "y": 3
@@ -43,6 +43,9 @@
                 "type": "SUNFLOWER",
                 "value": 3,
                 "up": false
+            },
+            "6": {
+                "type": "GODRAYS"
             }
         }
     }
