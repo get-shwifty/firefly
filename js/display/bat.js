@@ -1,6 +1,7 @@
 import { GameObject, Black, AssetManager, Sprite, BlendMode, AnimationController, Graphics, Tween, Ease } from 'black-engine'
 
-import {TILE_SIZE} from './game'
+import {TILE_SIZE} from '../game'
+const MAX = 5
 const POS = [
         { x: 0.5, y: 0.5},
         { x: 0.20, y: 0.20},
@@ -10,40 +11,46 @@ const POS = [
     ]
 
 export default class Bat extends GameObject {
-  constructor() {
+  constructor(bat) {
     super();
-    this.number = 5;
+    this.value = bat.value
+    this.visible = bat.visible;
   }
-
-  //Affichage ou suppression des chauves-souris en fonction de la lumière reçue 
-  updateNumberOfBats(glow_received) {
-    this.number = 5 - glow_received
-    console.log(this.number)
-
-    for (let i = 0; i < 5; i++){
-        this.children[i].visible = i < this.number;
-    }
-  }
-
-  update(bat){
-      this.number = bat.value
-    for (let i = 0; i < 5; i++){
-        this.children[i].visible = i < this.number;
-    }
-  }
-
+  
   onAdded(m) {
     this.g = this.addChild(new Graphics())
     const g = this.g
-
     g.clear()
     g.lineStyle(1, 0xf9b626);
     g.rect(this.x, this.y, TILE_SIZE, TILE_SIZE);
     g.stroke();
+    
+    this.flyingBat = []
+    this.sleepingBat = []
+    for (let i = 0; i < this.value; i++){
+      this.flyingBat.push(this.createAnimation(TILE_SIZE * POS[i].x, TILE_SIZE * POS[i].y))
+      // this.sleepingBat.push(this.addChild(new Sprite('bat_hidden')))
+      if (i < this.visible){
+        this.flyingBat[i].visible = true
+        // this.sleepingBat[i].visible = false
+      }else{
+        this.flyingBat[i].visible = false
+        // this.sleepingBat[i].visible = false
+      }
+    }
+  }
 
-    this.children = []
-    for (let i = 0; i < 5; i++){
-        this.children.push(this.createAnimation(TILE_SIZE*POS[i].x, TILE_SIZE*POS[i].y))
+  update(bat){
+    this.value = bat.value
+    this.visible = bat.visible
+    for (let i = 0; i < this.value; i++){
+      if (i < this.visble){
+        this.flyingBat[i].visible = true
+        // this.sleepingBat[i].visible = false
+      }else{
+        this.flyingBat[i].visible = false
+        // this.sleepingBat[i].visible = false
+      }
     }
   }
 

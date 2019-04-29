@@ -19,8 +19,8 @@
             },
             "2": {
                 "type": "CRYSTAL",
-                "currentGlow": 0,
-                "maxGlow": 2,
+                "value": 2,
+                "filled": 0,
                 "doorPos": {
                     "x": 0,
                     "y": 3
@@ -36,11 +36,16 @@
             },
             "4": {
                 "type": "BAT",
-                "value": 2
+                "value": 3,
+                "visible": 3
             },
             "5": {
                 "type": "SUNFLOWER",
-                "value": 2
+                "value": 3,
+                "up": false
+            },
+            "6": {
+                "type": "GODRAYS"
             }
         }
     }
