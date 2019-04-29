@@ -48,7 +48,7 @@ export class Game extends GameObject {
         this.ui = this.addChild(new Ui())
 
         this.levelManager.onAssetsLoadded()
-        //this.soundManager.onAssetsLoadded()
+        this.soundManager.onAssetsLoadded()
         this.onNewLevel()
 
         Black.input.on('keyPress', this.onKeyPress, this)
