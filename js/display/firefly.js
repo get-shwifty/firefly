@@ -34,14 +34,6 @@ export default class Firefly extends GameObject {
   }
 
   onAdded(m) {
-    this.g = this.addChild(new Graphics())
-    const g = this.g
-
-    g.clear()
-    g.lineStyle(1, 0xf9b626);
-    g.rect(this.x, this.y, TILE_SIZE, TILE_SIZE);
-    g.stroke();
-
     this.children = []
     for (let i = 0; i < 5; i++){
         this.children.push(this.createAnimation(TILE_SIZE*POS[i].x, TILE_SIZE*POS[i].y))

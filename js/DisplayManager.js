@@ -38,12 +38,13 @@ export default class DisplayManager extends GameObject {
     }
 
     createLevel(level) {
+        console.log(level)
         this.cleanLevel()
-        this.worldGameObjects = {}
         // Layer 1 : Textures ground
         const ground = this.addChild(new GameObject)
-
+        
         // Layer 2 : Creating environment
+        this.worldGameObjects = {}
         const environment = this.addChild(new GameObject)
         for(const x of Object.keys(level.world)) {
             for(const y of Object.keys(level.world[x])) {
@@ -66,19 +67,25 @@ export default class DisplayManager extends GameObject {
                 }
             }
         }
-
+        
         // Layer 3 : Light glow
+        this.glowDict = {}
         const glow = this.addChild(new GameObject)
-        const glowTile = glow.addChild(new Glow(2))
-        glowTile.x = 2
-        glowTile.y = 0
-
+        for(const x of Object.keys(level.glow)) {
+            for(const y of Object.keys(level.glow[x])) {
+                const glowTile = glow.addChild(new Glow(level.glow[x][y]))
+                glowTile.x = +x * TILE_SIZE
+                glowTile.y = +y * TILE_SIZE
+                this.glowDict['glow_' + x + '_' + y] = glowTile
+            }
+        }
+        
         // Layer 4 : Player
         this.player = this.addChild(new Firefly())
         this.player.updatePosition(level.player.pos.x * TILE_SIZE, level.player.pos.y * TILE_SIZE)
         this.player.update(level.player)
     }
-
+    
     updateLevel(diff) {
         console.log(diff)
         if (diff.player){
@@ -88,10 +95,26 @@ export default class DisplayManager extends GameObject {
         if (diff.world){
             for(const x of Object.keys(diff.world)) {
                 for(const y of Object.keys(diff.world[x])) {
-                    console.log(x,y,diff.world[x][y],this.worldGameObjects[diff.world[x][y].id])
                     this.worldGameObjects[diff.world[x][y].id].update(diff.world[x][y])
                 }
             }
         }
+        if (diff.glow){
+            for(const x of Object.keys(diff.glow)) {
+                for(const y of Object.keys(diff.glow[x])) {
+                    console.log(x,y,diff.glow[x][y],this.glowDict['glow_' + x + '_' + y],diff.glow[x][y] || 0)
+                    if(this.glowDict['glow_' + x + '_' + y]){
+                        this.glowDict['glow_' + x + '_' + y].update(diff.glow[x][y] || 0)
+                    } else{
+                        const glowTile = glow.addChild(new Glow(level.glow[x][y]))
+                        glowTile.x = +x * TILE_SIZE
+                        glowTile.y = +y * TILE_SIZE
+                        this.glowDict['glow_' + x + '_' + y] = glowTile
+                    }
+                }
+            }
+        }
+        console.log(this.glowDict)
+
     }
 }
