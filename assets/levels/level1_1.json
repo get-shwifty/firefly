@@ -19,17 +19,21 @@
             },
             "2": {
                 "type": "CRYSTAL",
-                "currentGlow": 0,
-                "maxGlow": 2
+                "value": 4,
+                "filled": 2
             },
             "3": {
                 "type": "DOOR"
             },
             "4": {
-                "type": "BAT"
+                "type": "BAT",
+                "value": 3,
+                "visible": 3
             },
             "5": {
-                "type": "SUNFLOWER"
+                "type": "SUNFLOWER",
+                "value": 3,
+                "up": false
             }
         }
     }
