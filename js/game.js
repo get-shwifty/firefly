@@ -52,20 +52,23 @@ export class Game extends GameObject {
         let action;
         switch (keyInfo.keyCode) {
             case Key.UP_ARROW:
-            action = Action.UP
-            break
+                action = Action.UP
+                break
             case Key.DOWN_ARROW:
-            action = Action.DOWN
-            break
+                action = Action.DOWN
+                break
             case Key.LEFT_ARROW:
-            action = Action.LEFT
-            break
+                action = Action.LEFT
+                break
             case Key.RIGHT_ARROW:
-            action = Action.RIGHT
-            break
+                action = Action.RIGHT
+                break
             case Key.SPACE:
-            action = Action.SWAP
-            break
+                action = Action.SWAP
+                break
+            case Key.R:
+                this.onNewLevel()
+                break
         }
 
         if(action) {
