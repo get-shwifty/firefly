@@ -13,8 +13,9 @@ import jsonFirefly from 'assets/sprite/luciole_atlas.json'
 import jsonBat from 'assets/sprite/bat_atlas.json'
 import jsonOther from 'assets/sprite/assets_atlas.json'
 
+export const FONT = 'Indie Flower'
 
-const TILE_SIZE = 200
+export const TILE_SIZE = 200
 
 export class Game extends GameObject {
     constructor() {
@@ -28,7 +29,7 @@ export class Game extends GameObject {
         this.soundManager = new SoundManager()
         this.soundManager.enqueueSounds(assets)
 
-        assets.enqueueGoogleFont('Indie Flower')
+        assets.enqueueGoogleFont(FONT)
 
         assets.enqueueAtlas('firefly', spriteFirefly, jsonFirefly);
         assets.enqueueAtlas('bat', spriteBat, jsonBat);
@@ -109,8 +110,4 @@ export class Game extends GameObject {
             }
         }
     }
-}
-
-export {
-    TILE_SIZE
 }
