@@ -91,7 +91,7 @@
         "type": "GROUND"
       },
       "3" : {
-       "type": "GROUND"
+       "type": "EXIT"
       } 
     }
   }

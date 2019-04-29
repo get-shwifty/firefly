@@ -1,0 +1,58 @@
+{
+  "title": "level1_9",
+  "player": {
+    "pos": {
+      "x": 0,
+      "y": 0
+    },
+    "life": 5,
+    "glow": 4
+  },
+  "world": {
+    "0": {
+      "0": {
+        "type": "GROUND"  
+      },
+      "1":{
+        "type": "SUNFLOWER",
+        "value": 5  
+      },
+      "2":{
+        "type": "GROUND"  
+      }
+    },
+    "1": {
+      "0": {
+        "type": "SPIKE",
+        "value": 3
+      },
+      "1" : {
+        "type": "GROUND"
+      },
+      "2" : {
+        "type": "GROUND"
+      }
+    },
+    "2":{
+      "0": {
+        "type": "GROUND"
+      },
+      "2" : {
+        "type": "SUNFLOWER",
+        "value": 5 
+      }
+    },
+    "3":{
+      "0": {
+        "type": "SUNFLOWER",
+        "value": 5 
+      },
+      "1" : {
+        "type": "EXIT"
+      },
+      "2" : {
+        "type": "GROUND"
+      }
+    }
+  }
+}

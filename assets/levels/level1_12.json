@@ -1,0 +1,85 @@
+{
+  "title": "level1_12",
+  "player": {
+    "pos": {
+      "x": 0,
+      "y": 0
+    },
+    "life": 3,
+    "glow": 3
+  },
+  "world": {
+    "0": {
+      "0": {
+        "type": "GROUND"  
+      },
+      "1":{
+        "type": "GROUND" 
+      },
+      "2":{
+        "type": "CRYSTAL",
+        "value": 2,
+        "filled": 0,
+        "doorPos": {
+            "x": 3,
+            "y": 0}
+        }
+      ,
+      "3":{
+        "type": "GROUND"  
+      }
+    },
+    "1": {
+      "0": {
+       "type": "GROUND" 
+      },
+      "1" : {
+        "type": "GROUND"
+      },
+      "2" : {
+        "type": "GROUND" 
+      },
+      "3" : {
+        "type": "SPIKE",
+        "value": 1 
+      }
+    },
+    "2":{
+        "0":{
+           "type": "GROUND" 
+        },
+        "1":{
+           "type": "GROUND"  
+        },
+        "2":{
+           "type": "BAT",
+            "value": 3  
+        },
+        "3":{
+           "type": "CRYSTAL",
+            "value": 2,
+            "filled": 0,
+            "doorPos": {
+            "x": 3,
+            "y": 0 }
+        }
+    },
+    "3":{
+      "0": {
+        "type": "DOOR",
+        "opened": false,
+        "crystalsPos": [
+            {"x": 0,"y": 2},
+            {"x":2, "y":3}]
+      },
+      "1":{
+           "type": "GROUND"  
+        }
+    },
+    "4":{
+      "0": {
+        "type": "EXIT"
+      }
+    }
+}
+}
