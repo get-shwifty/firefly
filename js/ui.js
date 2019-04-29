@@ -12,7 +12,7 @@ export default class Ui extends GameObject {
         this.g = this.addChild(new Graphics())
         this.g.beginPath()
         this.g.fillStyle(0x222222, 1)
-        this.g.rect(0, NB_TILES_HEIGHT*TILE_SIZE, NB_TILES_WIDTH*TILE_SIZE, TILE_SIZE)
+        this.g.rect(0, 0, NB_TILES_WIDTH*TILE_SIZE, TILE_SIZE)
         this.g.fill()
     }
 

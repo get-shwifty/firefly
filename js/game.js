@@ -5,7 +5,7 @@ import LevelManager from './LevelManager'
 import DisplayManager from './DisplayManager'
 import SoundManager from './SoundManager'
 import Ui from './ui'
-import gameLoop, { Action, initState } from './engine'
+import gameLoop, { Action, initState, objectsInLayer } from './engine'
 
 import spriteFirefly from 'assets/sprite/lucioles.png'
 import spriteBat from 'assets/sprite/bats.png'
@@ -17,6 +17,9 @@ import jsonOther from 'assets/sprite/assets_atlas.json'
 export const FONT = 'Indie Flower'
 
 export const TILE_SIZE = 200
+import { NB_TILES_WIDTH, NB_TILES_HEIGHT } from './main'
+
+const CAM_MARGIN = 2
 
 export class Game extends GameObject {
     constructor() {
@@ -70,6 +73,7 @@ export class Game extends GameObject {
                 action = Action.SWAP
                 break
             case Key.R:
+            case Key.BACKSPACE:
                 this.onNewLevel()
                 break
         }
@@ -92,9 +96,11 @@ export class Game extends GameObject {
         this.displayManager.createLevel(this.state)
         this.soundManager.createLevel(this.state)
         this.ui.onStateChanged(this.state)
+        this.initCamera()
     }
 
     onStateChanged() {
+        this.updateCamera()
         const player = this.state.player
         
         // Manage death
@@ -113,5 +119,49 @@ export class Game extends GameObject {
                 this.onNewLevel()
             }
         }
+    }
+
+    initCamera() {
+        this.cam = { x: 0, y: 0 }
+
+        this.levelMinX = Infinity
+        this.levelMinY = Infinity
+        this.levelMaxX = -Infinity
+        this.levelMaxY = -Infinity
+        for(const [x, y, obj] of objectsInLayer(this.state.world)) {
+            this.levelMinX = Math.min(this.levelMinX, x)
+            this.levelMaxX = Math.max(this.levelMaxX, x)
+            this.levelMinY = Math.min(this.levelMinY, y)
+            this.levelMaxY = Math.max(this.levelMaxY, y)
+        }
+
+        this.updateCamera()
+    }
+
+    updateCamera() {
+        const player = this.state.player.pos
+        
+        const deltaPlayer = {
+            x: player.x - this.cam.x,
+            y: player.y - this.cam.y
+        }
+
+        if(deltaPlayer.x < CAM_MARGIN && this.cam.x > this.levelMinX) {
+            this.cam.x--
+        }
+        if(deltaPlayer.y < CAM_MARGIN && this.cam.y > this.levelMinY) {
+            this.cam.y--
+        }
+        if(deltaPlayer.x >= NB_TILES_WIDTH - CAM_MARGIN
+            && this.cam.x <= this.levelMaxX - NB_TILES_WIDTH) {
+            this.cam.x++
+        }
+        if(deltaPlayer.y >= NB_TILES_HEIGHT - CAM_MARGIN
+            && this.cam.y <= this.levelMaxY - NB_TILES_HEIGHT) {
+            this.cam.y++
+        }
+
+        this.displayManager.x = -this.cam.x * TILE_SIZE
+        this.displayManager.y = -(this.cam.y-1) * TILE_SIZE
     }
 }
