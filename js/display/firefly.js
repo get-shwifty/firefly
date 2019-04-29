@@ -29,7 +29,8 @@ export default class Firefly extends GameObject {
     //Affichage ou suppression des libellules en fonction de la vie 
     for (let i = 0; i < 5; i++){
         this.fireflies[i].visible = i < this.life;
-        this.emitters[i].visible = i < this.life;
+        this.emitters[i].addModifier(new ScaleOverLife(new FloatScatter(0.05 * this.glow, 0, Ease.backIn)),)
+        this.emitters[i].alpha = i < this.life;
     }
 
   }
@@ -41,8 +42,6 @@ export default class Firefly extends GameObject {
         this.fireflies.push(this.createAnimation(TILE_SIZE*POS[i].x, TILE_SIZE*POS[i].y))
         this.emitters.push(this.createEmitter())
     }
-    console.log("testest")
-    console.log(this.emitters)
   }
 
   onUpdate(){
@@ -80,16 +79,16 @@ export default class Firefly extends GameObject {
 
     emitter.add(
       // No one lives forever
-      new InitialLife(0.5),
+      new InitialLife(0.25),
 
       // Initialize every particles with a random velocity inside a box
-      new InitialVelocity(new VectorScatter(-0.5, -0.5, 0.5, 0.5)),
+      new InitialVelocity(new VectorScatter(-100, -100, 100, 100)),
 
       // Make particles small over life
-      new ScaleOverLife(new FloatScatter(0, 0.5, Ease.backIn)),
+      new ScaleOverLife(new FloatScatter(0.02 * this.glow, 0, Ease.backIn)),
 
       // Give some acceleration is all directions
-      new Acceleration(new VectorScatter(-1000, -1000, 1000, 1000)),
+      new Acceleration(new VectorScatter(-20, -20, 20, 20)),
     );
  
     // Add to scene
@@ -116,11 +115,11 @@ export default class Firefly extends GameObject {
     sprite.alignPivot();
     sprite.scale = 0.3
 
-    //Rotation des lucioles
-    let tween = new Tween({ rotation: 2 * Math.PI }, 4, { ease: Ease.linear });
-    // Set loop to true
-    tween.loop = true;
-    sprite.addComponent(tween);
+    // //Rotation des lucioles
+    // let tween = new Tween({ rotation: 2 * Math.PI }, 4, { ease: Ease.linear });
+    // // Set loop to true
+    // tween.loop = true;
+    // sprite.addComponent(sprite);
 
     this.addChild(sprite);
 
