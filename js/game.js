@@ -8,6 +8,7 @@ import gameLoop, { Action, initState } from './engine'
 
 import spriteFirefly from 'assets/sprite/lucioles.png'
 import spriteBat from 'assets/sprite/bats.png'
+import particleFirefly from 'assets/sprite/particle_firefly.png'
 import spriteOthers from 'assets/sprite/assets_atlas.png'
 import jsonFirefly from 'assets/sprite/luciole_atlas.json'
 import jsonBat from 'assets/sprite/bat_atlas.json'
@@ -33,6 +34,7 @@ export class Game extends GameObject {
         assets.enqueueAtlas('firefly', spriteFirefly, jsonFirefly);
         assets.enqueueAtlas('bat', spriteBat, jsonBat);
         assets.enqueueAtlas('other', spriteOthers, jsonOther);
+        assets.enqueueImage('particle_firefly', particleFirefly)
 
         assets.on('complete', this.onAssetsLoadded, this)
         assets.loadQueue()
