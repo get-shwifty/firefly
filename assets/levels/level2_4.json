@@ -9,202 +9,216 @@
     "glow": 5
   },
   "world": {
-    "0":{
-        "5":{
-            "type": "GROUND"
-        },
-        "6":{
-            "type": "SPIKE",
-            "value": 1  
-        },
-        "7":{
-            "type": "GROUND"  
-        }
+    "0": {
+      "5": {
+        "type": "GROUND"
+      },
+      "6": {
+        "type": "SPIKE",
+        "value": 1
+      },
+      "7": {
+        "type": "GROUND"
+      }
     },
     "1": {
-       "5":{
-            "type": "GROUND"
-        },
-        "6":{
-            "type": "GROUND"  
-        },
-        "7":{
-            "type": "SPIKE",
-            "value": 1  
-        }
+      "5": {
+        "type": "GROUND"
+      },
+      "6": {
+        "type": "GROUND"
+      },
+      "7": {
+        "type": "SPIKE",
+        "value": 1
+      }
     },
-    "2":{
-        "0":{
-           "type": "CRYSTAL",
-            "value": 3,
-            "filled": 0,
-            "doorPos": {
-            "x": 7,
-            "y": 3}
-        },
-        "1":{
-           "type": "GROUND"     
-        },
-        "2":{
-            "type": "GROUND"  
-        },
-        "3":{
-            "type": "GROUND"  
-        },
-        "4" : {
-            "type": "SUNFLOWER",
-            "value": 3  
-        },
-        "5" : {
-            "type": "GROUND"
-        },
-        "6" : {
-            "type": "GROUND"
-        },
-        "7" : {
-            "type": "GROUND"
+    "2": {
+      "0": {
+        "type": "CRYSTAL",
+        "value": 3,
+        "filled": 0,
+        "doorPos": {
+          "x": 7,
+          "y": 3
         }
+      },
+      "1": {
+        "type": "GROUND"
+      },
+      "2": {
+        "type": "GROUND"
+      },
+      "3": {
+        "type": "GROUND"
+      },
+      "4": {
+        "type": "SUNFLOWER",
+        "value": 3
+      },
+      "5": {
+        "type": "GROUND"
+      },
+      "6": {
+        "type": "GROUND"
+      },
+      "7": {
+        "type": "GROUND"
+      }
     },
-    "3":{
-        "3":{
-            "type": "SUNFLOWER",
-            "value": 3  
-        },
-        "4" : {
-            "type": "GROUND"
-        },
-        "5" : {
-            "type": "GROUND"
-        },
-        "6" : {
-            "type": "GROUND"
-        },
-        "7" : {
-            "type": "GROUND"
-        }
+    "3": {
+      "3": {
+        "type": "SUNFLOWER",
+        "value": 3
+      },
+      "4": {
+        "type": "GROUND"
+      },
+      "5": {
+        "type": "GROUND"
+      },
+      "6": {
+        "type": "GROUND"
+      },
+      "7": {
+        "type": "GROUND"
+      }
     },
-    "4":{
-        "0":{
-           "type": "GROUND" 
-        },
-        "1":{
-           "type": "GROUND"     
-        },
-        "2":{
-            "type": "DOOR",
-            "opened": false,
-            "crystalsPos": [
-            {"x": 5,"y": 6}]  
-        },
-        "3":{
-            "type": "GROUND"  
-        },
-        "4" : {
-            "type": "GROUND"    
-        },
-        "5" : {
-            "type": "GROUND"
-        },
-        "6" : {
-            "type": "BAT",
-            "value": 3  
-        },
-        "7" : {
-            "type": "GROUND"
-        }
+    "4": {
+      "0": {
+        "type": "GROUND"
+      },
+      "1": {
+        "type": "GROUND"
+      },
+      "2": {
+        "type": "DOOR",
+        "opened": false,
+        "crystalsPos": [
+          {
+            "x": 5,
+            "y": 6
+          }
+        ]
+      },
+      "3": {
+        "type": "GROUND"
+      },
+      "4": {
+        "type": "GROUND"
+      },
+      "5": {
+        "type": "GROUND"
+      },
+      "6": {
+        "type": "BAT",
+        "value": 3
+      },
+      "7": {
+        "type": "GROUND"
+      }
     },
-    "5":{
-        "0":{
-            "type": "GROUND" 
-        },
-        "3":{
-            "type": "GROUND" 
-        },
-        "4":{
-            "type": "GROUND" 
-        },
-        "5":{
-            "type": "BAT",
-            "value": 3  
-        },
-        "6":{
-            "type": "CRYSTAL",
-            "value": 1,
-            "filled": 0,
-            "doorPos": {
-            "x": 4,
-            "y": 3}
-        },
-        "7":{
-           "type": "BAT",
-            "value": 3 
+    "5": {
+      "0": {
+        "type": "GROUND"
+      },
+      "3": {
+        "type": "GROUND"
+      },
+      "4": {
+        "type": "GROUND"
+      },
+      "5": {
+        "type": "BAT",
+        "value": 3
+      },
+      "6": {
+        "type": "CRYSTAL",
+        "value": 1,
+        "filled": 0,
+        "doorPos": {
+          "x": 4,
+          "y": 2
         }
+      },
+      "7": {
+        "type": "BAT",
+        "value": 3
+      }
     },
-    "6":{
-        "0":{
-            "type": "GODRAYS",
-            "consumed": false 
-        },
-        "3":{
-            "type": "GROUND" 
-        },
-        "4":{
-            "type": "GROUND" 
-        },
-        "5":{
-           "type": "GROUND" 
-        },
-        "6":{
-            "type": "BAT",
-            "value": 3 
-        },
-        "7":{
-            "type": "GROUND"
-        }
+    "6": {
+      "0": {
+        "type": "GODRAYS",
+        "consumed": false
+      },
+      "3": {
+        "type": "GROUND"
+      },
+      "4": {
+        "type": "GROUND"
+      },
+      "5": {
+        "type": "GROUND"
+      },
+      "6": {
+        "type": "BAT",
+        "value": 3
+      },
+      "7": {
+        "type": "GROUND"
+      }
     },
-    "7":{
-        "3":{
-            "type": "DOOR",
-            "opened": false,
-            "crystalsPos": [
-            {"x": 2,"y": 0},
-            {"x":9,"y":6}] 
-        },
-        "4":{
-           "type": "GROUND" 
-        },
-        "5":{
-            "type": "GROUND" 
-        },
-        "6":{
-            "type": "GROUND" 
-        },
-        "7":{
-            "type": "SUNFLOWER",
-            "value": 2
-        }
+    "7": {
+      "3": {
+        "type": "DOOR",
+        "opened": false,
+        "crystalsPos": [
+          {
+            "x": 2,
+            "y": 0
+          },
+          {
+            "x": 9,
+            "y": 6
+          }
+        ]
+      },
+      "4": {
+        "type": "GROUND"
+      },
+      "5": {
+        "type": "GROUND"
+      },
+      "6": {
+        "type": "GROUND"
+      },
+      "7": {
+        "type": "SUNFLOWER",
+        "value": 2
+      }
     },
-    "8":{
-        "3":{
-            "type": "SUNFLOWER",
-            "value": 5
-        },
-        "6":{
-            "type": "GROUND"
-        }
+    "8": {
+      "3": {
+        "type": "SUNFLOWER",
+        "value": 5
+      },
+      "6": {
+        "type": "GROUND"
+      }
     },
-    "9":{
-        "3":{
-            "type": "EXIT"
-        },
-        "6":{
-            "type": "CRYSTAL",
-            "value": 1,
-            "filled": 0,
-            "doorPos": {
-            "x": 7,
-            "y": 3}
+    "9": {
+      "3": {
+        "type": "EXIT"
+      },
+      "6": {
+        "type": "CRYSTAL",
+        "value": 1,
+        "filled": 0,
+        "doorPos": {
+          "x": 7,
+          "y": 3
         }
+      }
     }
-}
+  }
 }
