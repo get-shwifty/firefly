@@ -10,7 +10,7 @@ export default class GlowUI extends GameObject {
   }
   
   onAdded(m) {
-    const logo = this.addChild(new Sprite('glow'))
+    const logo = this.addChild(new Sprite('glogo'))
     logo.x = 410
     logo.y = TILE_SIZE / 2
     logo.alignPivot()
