@@ -28,7 +28,7 @@ export default class SoundManager {
     }
 
     onAssetsLoadded() {
-
+        return
         Black.audio.createChannel('batChannel')
         this.bat = Black.audio.play('batSound', 'batChannel', 0, true)
 
@@ -83,10 +83,12 @@ export default class SoundManager {
     }
 
     updateLevel(state){
+        return
         this.getdistancefromplayer(state)
     }
 
     createLevel(state){
+        return
         this.updateLevel(state)
     }
     

@@ -66,13 +66,15 @@ export default function gameLoop(previousState, action) {
     if(!Action[action]) {
         throw 'Unknown action: ' + action
     }
+    const cleanedState = _.cloneDeep(previousState)
+    cleanState(cleanedState)
+
     const returnDiff = state => ({
         state,
-        changes: stateChanges(previousState, state)
+        changes: stateChanges(cleanedState, state)
     })
 
-    const state = _.cloneDeep(previousState)
-    const diff = null
+    const state = _.cloneDeep(cleanedState)
 
     // Swap
     if(action === Action.SWAP) {
@@ -155,6 +157,17 @@ function stateChanges(oldState, newState) {
     return diff
 }
 
+function cleanState(state) {
+    delete state.player.swap
+    for(const [x, y, object] of objectsInLayer(state.world)) {
+        switch(object.type) {
+            case Tile.SPIKE:
+                delete object.playerLifeTaken
+                break
+        }
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////////
 // SWAP
 
@@ -170,6 +183,7 @@ function swap(state) {
     const { life, glow } = player
     player.life = glow
     player.glow = life
+    player.swap = true
 
     return true
 }
@@ -202,7 +216,7 @@ function moveToSimple(state, pos) {
 }
 
 ///////////////////////////////////////////////////////////////////////////
-// SPIKE
+// EXIT
 
 function moveToExit(state, pos, exit) {
     moveToSimple(state, pos)
@@ -216,6 +230,8 @@ function moveToSpike(state, pos, spike) {
     moveToSimple(state, pos)
     const player = state.player
     player.life -= spike.value
+    spike.playerLifeTaken = true
+
     return true
 }
 
