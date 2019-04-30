@@ -163,6 +163,7 @@ function cleanState(state) {
     for(const [x, y, object] of objectsInLayer(state.world)) {
         switch(object.type) {
             case Tile.SPIKE:
+            case Tile.BAT:
                 delete object.playerLifeTaken
                 break
         }
@@ -175,12 +176,12 @@ function cleanState(state) {
 function swap(state) {
     const pos = Victor.fromObject(state.player.pos)
     const object = _.get(state.world, [pos.x, pos.y])
+    const player = state.player
 
-    if(!CAN_SWAP[object.type]) {
+    if(!CAN_SWAP[object.type] || player.glow <= 0) {
         return false
     }
 
-    const player = state.player
     const { life, glow } = player
     player.life = glow
     player.glow = life
@@ -299,7 +300,10 @@ function moveToSunflower(state, pos, sunflower) {
 function moveToBat(state, pos, bat) {
     moveToSimple(state, pos)
     const player = state.player
-    player.life -= bat.nbAwake
+    if(bat.nbAwake > 0) {
+        player.life -= bat.nbAwake
+        bat.playerLifeTaken = true
+    }
     return true
 }
 

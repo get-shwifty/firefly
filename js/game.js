@@ -5,7 +5,7 @@ import LevelManager from './LevelManager'
 import DisplayManager from './DisplayManager'
 import SoundManager from './SoundManager'
 import Ui from './ui'
-import gameLoop, { Action, initState, objectsInLayer } from './engine'
+import gameLoop, { Action, initState, objectsInLayer, Tile } from './engine'
 
 import spriteFirefly from 'assets/sprite/lucioles.png'
 import spriteBat from 'assets/sprite/bats.png'
@@ -14,9 +14,9 @@ import spriteOthers from 'assets/sprite/assets_atlas.png'
 import jsonFirefly from 'assets/sprite/luciole_atlas.json'
 import jsonBat from 'assets/sprite/bat_atlas.json'
 import jsonOther from 'assets/sprite/assets_atlas.json'
-import lifeLogo from "assets/sprite/life.png"
-import glogo from "assets/sprite/light.png"
-import glow from "assets/sprite/dalles.png"
+import lifeLogo from 'assets/sprite/life.png'
+import glogo from 'assets/sprite/light.png'
+import glow from 'assets/sprite/dalles.png'
 
 export const FONT = 'Indie Flower'
 
@@ -24,6 +24,19 @@ export const TILE_SIZE = 200
 import { NB_TILES_WIDTH, NB_TILES_HEIGHT } from './main'
 
 const CAM_MARGIN = 2
+
+export const GameEvent = {
+    LEVEL_FINISHED: 'LEVEL_FINISHED',
+    DEAD: 'DEAD',
+    SWAPPED: 'SWAPPED',
+    HIT_BY_SPIKE: 'HIT_BY_SPIKE',
+    HIT_BY_BAT: 'HIT_BY_BAT',
+    CRYSTAL_FILLED: 'CRYSTAL_FILLED',
+    DOOR_OPENED: 'DOOR_OPENED',
+    FORBIDDEN: 'FORBIDDEN',
+    GODRAYS_CONSUMED: 'GODRAYS_CONSUMED',
+    RESTART: 'RESTART'
+}
 
 export class Game extends GameObject {
     constructor() {
@@ -68,32 +81,35 @@ export class Game extends GameObject {
         switch (keyInfo.keyCode) {
             case Key.UP_ARROW:
                 action = Action.UP
-                break
+            break
             case Key.DOWN_ARROW:
                 action = Action.DOWN
-                break
+            break
             case Key.LEFT_ARROW:
                 action = Action.LEFT
-                break
+            break
             case Key.RIGHT_ARROW:
                 action = Action.RIGHT
-                break
+            break
             case Key.SPACE:
                 action = Action.SWAP
-                break
+            break
             case Key.R:
             case Key.BACKSPACE:
+                this.trigger(GameEvent.RESTART)
                 this.onNewLevel()
-                break
+            break
         }
 
         if(action) {
             const { state, changes } = gameLoop(this.state, action)
             if(!_.isEmpty(changes.after)) {
-                console.log(state)
                 this.displayManager.updateLevel(changes.after)
                 this.state = state
+                this.changes = changes
                 this.onStateChanged()
+            } else {
+                this.trigger(GameEvent.FORBIDDEN)
             }
         }
     }
@@ -107,28 +123,63 @@ export class Game extends GameObject {
     }
 
     onStateChanged() {
-      this.updateCamera()
-      this.soundManager.updateLevel(this.state)
-      this.ui.onStateChanged(this.state)
+        this.updateCamera()
+        this.soundManager.updateLevel(this.state)
+        this.ui.onStateChanged(this.state)
 
-      const player = this.state.player
-      
-      // Manage death
-      if(player.life <= 0) {
-          // TODO animate ?
-          this.onNewLevel()
-      }
+        const player = this.state.player
+        
+        // Manage death
+        if(player.life <= 0) {
+            // TODO animate ?
+            this.trigger(GameEvent.DEAD)
+            return this.onNewLevel()
+        }
 
-      if(this.state.win) {
-          const finished = this.levelManager.next()
-          if(finished) {
-              // TODO
-              console.log('END OF THE GAME TODO')
-              this.onNewLevel() // tmp
-          } else {
-              this.onNewLevel()
-          }
-      }
+        if(this.state.win) {
+            this.trigger(GameEvent.LEVEL_FINISHED)
+            const finished = this.levelManager.next()
+            if(finished) {
+                // TODO
+                console.log('END OF THE GAME TODO')
+                return this.onNewLevel() // tmp
+            } else {
+                return this.onNewLevel()
+            }
+        }
+
+        // Trigger game events
+        const after = this.changes.after
+        if(after.player && after.player.swap) {
+            this.trigger(GameEvent.SWAP)
+        }
+        for(const [x, y, obj] of objectsInLayer(after.world)) {
+            switch(obj.type) {
+                case Tile.SPIKE:
+                    if(obj.playerLifeTaken) {
+                        this.trigger(GameEvent.HIT_BY_SPIKE)
+                    }
+                break
+                case Tile.BAT:
+                    if(obj.playerLifeTaken) {
+                        this.trigger(GameEvent.HIT_BY_BAT)
+                    }
+                break
+                case Tile.CRYSTAL:
+                    this.trigger(GameEvent.CRYSTAL_FILLED)
+                break
+                case Tile.DOOR:
+                    this.trigger(GameEvent.DOOR_OPENED)
+                break
+                case Tile.GODRAYS:
+                    this.trigger(GameEvent.GODRAYS_CONSUMED)
+                break
+            }
+        }
+    }
+
+    trigger(name) {
+        this.soundManager.trigger(name)
     }
 
     initCamera() {

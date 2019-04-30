@@ -1,6 +1,6 @@
 import { Black } from "black-engine";
 import { objectsInLayer } from './engine'
-
+import { GameEvent } from './game'
 
 import bat from 'assets/audio/music/ld44_bat.ogg'
 import crystal from 'assets/audio/music/ld44_crystals.ogg'
@@ -28,7 +28,6 @@ export default class SoundManager {
     }
 
     onAssetsLoadded() {
-        return
         Black.audio.createChannel('batChannel')
         this.bat = Black.audio.play('batSound', 'batChannel', 0, true)
 
@@ -82,13 +81,46 @@ export default class SoundManager {
         }
     }
 
+    trigger(gameEvent) {
+        switch(gameEvent) {
+            case GameEvent.LEVEL_FINISHED:
+                console.log('LEVEL_FINISHED')
+            break
+            case GameEvent.DEAD:
+                console.log('DEAD')
+            break
+            case GameEvent.SWAPPED:
+                console.log('SWAPPED')
+            break
+            case GameEvent.HIT_BY_SPIKE:
+                console.log('HIT_BY_FROG')
+            break
+            case GameEvent.HIT_BY_BAT:
+                console.log('HIT_BY_BAT')
+            break
+            case GameEvent.CRYSTAL_FILLED:
+                console.log('CRYSTAL_FILLED')
+            break
+            case GameEvent.DOOR_OPENED:
+                console.log('DOOR_OPENED')
+            break
+            case GameEvent.FORBIDDEN:
+                console.log('FORBIDDEN')
+            break
+            case GameEvent.GODRAYS_CONSUMED:
+                console.log('GODRAYS_CONSUMED')
+            break
+            case GameEvent.RESTART:
+                console.log('RESTART')
+            break
+        }
+    }
+
     updateLevel(state){
-        return
         this.getdistancefromplayer(state)
     }
 
     createLevel(state){
-        return
         this.updateLevel(state)
     }
     
