@@ -9,6 +9,13 @@ const POS = [
         { x: 0.80, y: 0.75},
         { x: 0.20, y: 0.75},
     ]
+const POS_HIDDEN = [
+      { x: 0.15, y: 0.15},
+      { x: 0.85, y: 0.15},
+      { x: 0.50, y: 0.15},
+      { x: 0.30, y: 0.15},
+      { x: 0.75, y: 0.15},
+]
 const speeds = [1.5, 1, 2, 1.5, 1]
 
 export default class Bat extends GameObject {
@@ -18,12 +25,18 @@ export default class Bat extends GameObject {
     this.nbAwake = bat.nbAwake;
   }
   
-  onAdded(m) {    
+  onAdded(m) {
     this.flyingBat = []
     this.sleepingBat = []
     for (let i = 0; i < this.value; i++){
       this.flyingBat.push(this.createAnimation(TILE_SIZE * POS[i].x, TILE_SIZE * POS[i].y))
-      // this.sleepingBat.push(this.addChild(new Sprite('bat_hidden')))
+      const batHidden = new Sprite('batHidden')
+      batHidden.x = POS_HIDDEN[i].x * TILE_SIZE
+      batHidden.y = POS_HIDDEN[i].y * TILE_SIZE
+      batHidden.scale = 0.3
+      batHidden.alignPivot()
+      batHidden.visible = false
+      this.sleepingBat.push(this.addChild(batHidden))
     }
     this.updateVisibility()
   }
@@ -46,6 +59,9 @@ export default class Bat extends GameObject {
   updateVisibility() {
     for (let i = 0; i < this.value; i++){
       this.flyingBat[i].visible = i < this.nbAwake
+      this.sleepingBat[i].visible = i >= this.nbAwake
+      // this.sleepingBat[i].x = this.flyingBat[i].x
+      // this.sleepingBat[i].y = this.flyingBat[i].x
     }
   }
 

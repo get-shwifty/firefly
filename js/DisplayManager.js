@@ -95,9 +95,9 @@ export default class DisplayManager extends GameObject {
             const neighbors = getNeighbors(x, y)
             for( const neighbor of neighbors) {
                 const { x, y } = neighbor
-                console.log({ x, y })
+                // console.log({ x, y })
                 if(!placeSet.has(neighbor) && !_.get(level.world, [neighbor.x, neighbor.y])) {
-                    console.log('\ttrue')
+                    // console.log('\ttrue')
                     placeSet.add(neighbor)
                     const blocTile = this.blocsLayer.addChild(new DisplayObject)
                     blocTile.x = +x * TILE_SIZE - 25
@@ -107,7 +107,7 @@ export default class DisplayManager extends GameObject {
             }
         }
 
-        console.log(this)
+        // console.log(this)
     }
     
     updateLevel(diff, state) {
