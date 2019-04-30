@@ -18,7 +18,8 @@ export const Tile = {
     SUNFLOWER: 'SUNFLOWER',
     BAT: 'BAT',
     GODRAYS: 'GODRAYS',
-    EXIT: 'EXIT'
+    EXIT: 'EXIT',
+    FROGGY: 'FROGGY'
 }
 
 export const MAX_LIFE = 5

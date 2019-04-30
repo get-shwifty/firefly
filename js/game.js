@@ -14,9 +14,9 @@ import spriteOthers from 'assets/sprite/assets_atlas.png'
 import jsonFirefly from 'assets/sprite/luciole_atlas.json'
 import jsonBat from 'assets/sprite/bat_atlas.json'
 import jsonOther from 'assets/sprite/assets_atlas.json'
-import life from "assets/sprite/life.png"
-import glow from "assets/sprite/light.png"
-
+import lifeLogo from "assets/sprite/life.png"
+import glogo from "assets/sprite/light.png"
+import glow from "assets/sprite/dalles.png"
 
 export const FONT = 'Indie Flower'
 
@@ -44,7 +44,8 @@ export class Game extends GameObject {
         assets.enqueueAtlas('other', spriteOthers, jsonOther);
         assets.enqueueImage('particle_firefly', particleFirefly)
 
-        assets.enqueueImage('life', life);
+        assets.enqueueImage('lifeLogo', lifeLogo);
+        assets.enqueueImage('glogo', glogo);
         assets.enqueueImage('glow', glow);
 
         assets.on('complete', this.onAssetsLoadded, this)

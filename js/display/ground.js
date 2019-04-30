@@ -8,11 +8,11 @@ export default class Ground extends GameObject {
   }
 
   onAdded(m) {
-    let sprite = new Sprite('chemin_full');
+    // let sprite = new Sprite('chemin_full');
 
     //let texture = Black.assets.getTextures('chemin_full');
     
-    this.addChild(sprite);
+    // this.addChild(sprite);
 
     // this.g = this.addChild(new Graphics())
     // const g = this.g
