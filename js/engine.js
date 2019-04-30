@@ -86,7 +86,7 @@ export default function gameLoop(previousState, action) {
     }
 
     // Move
-    if(!move(state, action)) {
+    if(!move(state, action) && action !== 'IDLE') {
         return returnDiff(state)
     }
 
