@@ -79,6 +79,7 @@ export default class SoundManager {
             3: 0.25,
             4: 0.0,
         }
+        Black.audio.stopAll()
     }
 
     trigger(gameEvent) {

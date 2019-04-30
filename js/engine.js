@@ -374,7 +374,7 @@ function hashPos(pos) {
     return pos.x + '_' + pos.y
 }
 
-class PosSet extends Set {
+export class PosSet extends Set {
     constructor(ite=[]) {
         super(_.map(ite, hashPos))
     }
@@ -406,9 +406,9 @@ function setGlowAt(state, x, y, glow) {
             _.setWith(state, ['glow', cur.x, cur.y], cur.glow, Object)
         }
         if(cur.glow >= 2) {
-            _.forEach(DIRECTION, dir => {
-                const x = +cur.x + dir.x
-                const y = +cur.y + dir.y
+            const neighbors = getNeighbors(cur.x, cur.y)
+            _.forEach(neighbors, neighbor => {
+                const { x, y } = neighbor
                 if(!_.get(state.world, [x, y])) {
                     return
                 }
@@ -418,4 +418,17 @@ function setGlowAt(state, x, y, glow) {
             })
         }
     }
+}
+
+export function getNeighbors(x_, y_) {
+    const neighbors = []
+    _.forEach(DIRECTION, dir => {
+        if(dir === DIRECTION.IDLE) {
+            return
+        }
+        const x = +x_ + dir.x
+        const y = +y_ + dir.y
+        neighbors.push({ x, y })
+    })
+    return neighbors
 }

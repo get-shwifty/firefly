@@ -17,6 +17,7 @@ import jsonOther from 'assets/sprite/assets_atlas.json'
 import lifeLogo from 'assets/sprite/life.png'
 import glogo from 'assets/sprite/light.png'
 import glow from 'assets/sprite/dalles.png'
+import bloc from 'assets/sprite/bloc.png'
 
 export const FONT = 'Indie Flower'
 
@@ -60,6 +61,7 @@ export class Game extends GameObject {
         assets.enqueueImage('lifeLogo', lifeLogo);
         assets.enqueueImage('glogo', glogo);
         assets.enqueueImage('glow', glow);
+        assets.enqueueImage('bloc', bloc);
 
         assets.on('complete', this.onAssetsLoadded, this)
         assets.loadQueue()
