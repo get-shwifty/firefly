@@ -14,15 +14,13 @@ import Exit from './display/exit'
 import {TILE_SIZE} from './game.js'
 
 
-// To Update : when the tiles classes will be defined
 const TILE_CLASS = {
     [Tile.GROUND]: Ground,
     [Tile.BAT]: Bat,
     [Tile.SUNFLOWER]: Sunflower,
     [Tile.CRYSTAL]: Crystal,
     [Tile.DOOR]: Door,
-    [Tile.SPIKE]: Spike,
-    [Tile.FROGGY]: Froggy,
+    [Tile.SPIKE]: Froggy,
     [Tile.GODRAYS]: Godrays,
     [Tile.EXIT]: Exit
 }

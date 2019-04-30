@@ -3,10 +3,24 @@ import { GameObject, Black, AssetManager, Sprite, BlendMode, AnimationController
 import {TILE_SIZE} from '../game'
 const MAX = 4
 const POS = [
-    { x: 0.25, y: 0.20},
-    { x: 0.75, y: 0.20},
-    { x: 0.75, y: 0.80},
-    { x: 0.25, y: 0.80},
+    [
+      { x: 0.4, y: 0.5}
+    ],
+    [
+      { x: 0.20, y: 0.25},
+      { x: 0.65, y: 0.70}
+    ],
+    [
+      { x: 0.4, y: 0.25},
+      { x: 0.2, y: 0.70},
+      { x: 0.65, y: 0.70}
+    ],
+    [
+      { x: 0.20, y: 0.20},
+      { x: 0.65, y: 0.20},
+      { x: 0.65, y: 0.70},
+      { x: 0.20, y: 0.70}
+    ]
 ]
 export default class Froggy extends GameObject {
   constructor(froggy) {
@@ -18,16 +32,17 @@ export default class Froggy extends GameObject {
     this.froggy = []
     for (let i = 0; i < this.value; i++){
       this.froggy.push(
-        this.createAnimation('frog_1',TILE_SIZE * POS[i].x, TILE_SIZE * POS[i].y)
+        this.createAnimation('frog_1',TILE_SIZE * POS[this.value-1][i].x, TILE_SIZE * POS[this.value-1][i].y)
         )
     }
   }
   
   update(froggy){
-    for (let i = 0; i < froggy.nbToAnimate; i++){
-      this.froggyAnimate(this.froggy[i].getComponent(AnimationController))
+    if (froggy.playerLifeTaken){
+      for (let i = 0; i < this.value; i++){
+        this.froggyAnimate(this.froggy[i].getComponent(AnimationController))
+      }
     }
-    this.value = froggy.value
   }
   
   
@@ -38,11 +53,12 @@ export default class Froggy extends GameObject {
     sprite.y = y;
 
     // Get animation Texture's
-    //On crée un deuxième tableau qui prend l'ordre inverse des images
     let textureAnim = Black.assets.getTextures('frog_*');
+    let reverseAnim = textureAnim.slice().reverse()
+    textureAnim = textureAnim.concat(reverseAnim)
 
     this.anim = sprite.addComponent(new AnimationController());
-    this.anim.add('anim', textureAnim, 8);
+    this.anim.add('anim', textureAnim, 15);
     
     sprite.alignPivot()
     sprite.scale = 0.6
