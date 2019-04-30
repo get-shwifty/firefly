@@ -108,7 +108,6 @@ export default class Firefly extends GameObject {
   createAnimation(x, y) {
     var sprite = new Sprite();
 
-    sprite.blendMode = BlendMode.ADD;
     sprite.x = x;
     sprite.y = y;
 

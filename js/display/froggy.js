@@ -48,7 +48,6 @@ export default class Froggy extends GameObject {
   
   createAnimation(spriteName,x,y) {
     const sprite = new Sprite(spriteName)
-    sprite.blendMode = BlendMode.ADD;
     sprite.x = x;
     sprite.y = y;
 
