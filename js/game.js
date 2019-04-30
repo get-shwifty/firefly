@@ -198,6 +198,36 @@ export class Game extends GameObject {
             this.levelMaxY = Math.max(this.levelMaxY, y)
         }
 
+        
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
         this.updateCamera()
     }
 
@@ -226,5 +256,8 @@ export class Game extends GameObject {
 
         this.displayManager.x = -this.cam.x * TILE_SIZE
         this.displayManager.y = -(this.cam.y-1) * TILE_SIZE
+
+        this.displayManager.onCameraMoved(
+            this.state, -this.cam.x, -this.cam.y, NB_TILES_WIDTH, NB_TILES_HEIGHT)
     }
 }

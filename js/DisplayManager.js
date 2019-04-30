@@ -110,7 +110,7 @@ export default class DisplayManager extends GameObject {
         console.log(this)
     }
     
-    updateLevel(diff) {
+    updateLevel(diff, state) {
         if (diff.player){
             this.player.updatePosition(diff.player.pos.x * TILE_SIZE, diff.player.pos.y * TILE_SIZE)
             this.player.update(diff.player)
@@ -137,5 +137,14 @@ export default class DisplayManager extends GameObject {
                 }
             }
         }
+    }
+
+    onCameraMoved(state, x_, y_, w_, h_) {
+        /*
+        TODO doesnt work
+        for(const [x, y, object] of objectsInLayer(state.world)) {
+            const visible = x_ <= x && x < x_ + w_ && y_ <= y && y < y_ + h_
+            this.worldGameObjects[object.id].visible = visible
+        }*/
     }
 }
