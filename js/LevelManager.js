@@ -17,6 +17,7 @@ import level2_1 from 'assets/levels/level2_1.json'
 import level2_2 from 'assets/levels/level2_2.json'
 import level2_3 from 'assets/levels/level2_3.json'
 import level2_4 from 'assets/levels/level2_4.json'
+import level2_5 from 'assets/levels/level2_5.json'
 
 const LEVELS = [
     ['level1_1', level1_1],
@@ -35,6 +36,7 @@ const LEVELS = [
     ['level2_2', level2_2],
     ['level2_3', level2_3],
     ['level2_4', level2_4],
+    ['level2_5', level2_5],
 
 ]
 

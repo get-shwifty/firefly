@@ -29,7 +29,7 @@ class UiPanel extends GameObject {
         this.g = this.addChild(new Graphics())
         this.g.beginPath()
         this.g.fillStyle(0x222222, 1)
-        this.g.rect(0, 0, NB_TILES_WIDTH*TILE_SIZE, TILE_SIZE)
+        this.g.rect(0, 0, NB_TILES_WIDTH*TILE_SIZE, TILE_SIZE-25)
         this.g.fill()
 
         const separator = new TextField(":",FONT,0x34505b,TILE_SIZE)

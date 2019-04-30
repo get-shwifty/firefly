@@ -17,6 +17,7 @@ import jsonOther from 'assets/sprite/assets_atlas.json'
 import lifeLogo from 'assets/sprite/life.png'
 import glogo from 'assets/sprite/light.png'
 import glow from 'assets/sprite/dalles.png'
+import bloc from 'assets/sprite/bloc.png'
 
 export const FONT = 'Indie Flower'
 
@@ -60,6 +61,7 @@ export class Game extends GameObject {
         assets.enqueueImage('lifeLogo', lifeLogo);
         assets.enqueueImage('glogo', glogo);
         assets.enqueueImage('glow', glow);
+        assets.enqueueImage('bloc', bloc);
 
         assets.on('complete', this.onAssetsLoadded, this)
         assets.loadQueue()
@@ -196,6 +198,36 @@ export class Game extends GameObject {
             this.levelMaxY = Math.max(this.levelMaxY, y)
         }
 
+        
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
+        this.updateCamera()
         this.updateCamera()
     }
 
@@ -224,5 +256,8 @@ export class Game extends GameObject {
 
         this.displayManager.x = -this.cam.x * TILE_SIZE
         this.displayManager.y = -(this.cam.y-1) * TILE_SIZE
+
+        this.displayManager.onCameraMoved(
+            this.state, -this.cam.x, -this.cam.y, NB_TILES_WIDTH, NB_TILES_HEIGHT)
     }
 }

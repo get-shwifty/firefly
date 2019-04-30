@@ -30,8 +30,12 @@ export default class Firefly extends GameObject {
     //Affichage ou suppression des libellules en fonction de la vie 
     for (let i = 0; i < 5; i++){
       if(player.swap){
-        let tween1 = new Tween({ x: TILE_SIZE / 2, y: TILE_SIZE / 2}, 0.3, {ease: Ease.exponentialIn})
-        let tween2 = new Tween({ x: TILE_SIZE * POS[i].x, y: TILE_SIZE * POS[i].y }, 0.3,{playOnAdded: false, ease: Ease.exponentialOut})
+        const dt = Black.time.now + Black.time.dt * 60 * 0.6
+        const dir = i%2 == 0 ? 1 : -1
+        const newPosX = dir * Math.cos(dt * speeds[i] + POS[i].x) * TILE_SIZE / 3 + TILE_SIZE / 2
+        const newPosY = dir * Math.sin(2*dt * speeds[i] + POS[i].y) * TILE_SIZE / 3 + TILE_SIZE / 2
+        let tween1 = new Tween({ x: TILE_SIZE / 2, y: TILE_SIZE / 2}, 0.3, {ease: Ease.backOut})
+        let tween2 = new Tween({ x: newPosX, y: newPosY }, 0.3,{playOnAdded: false, ease: Ease.backIn})
         tween1.chain(tween2)
         this.fireflies[i].addComponent(tween1);
         this.fireflies[i].addComponent(tween2);
@@ -65,8 +69,8 @@ export default class Firefly extends GameObject {
   updateFireflies(dt){
     this.fireflies.forEach((_, i) => {
       const dir = i%2 == 0 ? 1 : -1
-      const newPosX = dir * Math.cos(dt * speeds[i]) * TILE_SIZE / 3 + TILE_SIZE / 2
-      const newPosY = dir * Math.sin(2*dt * speeds[i]) * TILE_SIZE / 3 + TILE_SIZE / 2
+      const newPosX = dir * Math.cos(dt * speeds[i] + POS[i].x) * TILE_SIZE / 3 + TILE_SIZE / 2
+      const newPosY = dir * Math.sin(2*dt * speeds[i] + POS[i].y) * TILE_SIZE / 3 + TILE_SIZE / 2
       this.fireflies[i].x = newPosX
       this.fireflies[i].y = newPosY
       this.emitters[i].x = newPosX

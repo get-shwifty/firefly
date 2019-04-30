@@ -1,5 +1,5 @@
 import { GameObject, Sprite, DisplayObject } from "black-engine";
-import { Tile } from "./engine"
+import { Tile, objectsInLayer, getNeighbors, PosSet } from "./engine"
 import Firefly from './display/firefly'
 import Bat from './display/bat'
 import Sunflower from './display/sunflower'
@@ -88,10 +88,29 @@ export default class DisplayManager extends GameObject {
         this.player.updatePosition(level.player.pos.x * TILE_SIZE, level.player.pos.y * TILE_SIZE)
         this.player.update(level.player)
 
+        // Layer 5 : Bloc
+        this.blocsLayer = this.addChild(new DisplayObject)
+        const placeSet = new PosSet()
+        for(const [x, y, object] of objectsInLayer(level.world)) {
+            const neighbors = getNeighbors(x, y)
+            for( const neighbor of neighbors) {
+                const { x, y } = neighbor
+                console.log({ x, y })
+                if(!placeSet.has(neighbor) && !_.get(level.world, [neighbor.x, neighbor.y])) {
+                    console.log('\ttrue')
+                    placeSet.add(neighbor)
+                    const blocTile = this.blocsLayer.addChild(new DisplayObject)
+                    blocTile.x = +x * TILE_SIZE - 25
+                    blocTile.y = +y * TILE_SIZE - 25
+                    blocTile.addChild(new Sprite('bloc'))
+                }
+            }
+        }
+
         console.log(this)
     }
     
-    updateLevel(diff) {
+    updateLevel(diff, state) {
         if (diff.player){
             this.player.updatePosition(diff.player.pos.x * TILE_SIZE, diff.player.pos.y * TILE_SIZE)
             this.player.update(diff.player)
@@ -118,5 +137,14 @@ export default class DisplayManager extends GameObject {
                 }
             }
         }
+    }
+
+    onCameraMoved(state, x_, y_, w_, h_) {
+        /*
+        TODO doesnt work
+        for(const [x, y, object] of objectsInLayer(state.world)) {
+            const visible = x_ <= x && x < x_ + w_ && y_ <= y && y < y_ + h_
+            this.worldGameObjects[object.id].visible = visible
+        }*/
     }
 }
