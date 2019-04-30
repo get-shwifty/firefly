@@ -29,11 +29,13 @@ export default class Firefly extends GameObject {
     this.glow = player.glow 
     //Affichage ou suppression des libellules en fonction de la vie 
     for (let i = 0; i < 5; i++){
-      // let tween1 = new Tween({ x: TILE_SIZE / 2, y: TILE_SIZE / 2}, 0.3, {ease: Ease.exponentialIn})
-      // let tween2 = new Tween({ x: TILE_SIZE * POS[i].x, y: TILE_SIZE * POS[i].y }, 0.3,{playOnAdded: false, ease: Ease.exponentialOut})
-      // tween1.chain(tween2)
-      // this.fireflies[i].addComponent(tween1);
-      // this.fireflies[i].addComponent(tween2);
+      if(player.swap){
+        let tween1 = new Tween({ x: TILE_SIZE / 2, y: TILE_SIZE / 2}, 0.3, {ease: Ease.exponentialIn})
+        let tween2 = new Tween({ x: TILE_SIZE * POS[i].x, y: TILE_SIZE * POS[i].y }, 0.3,{playOnAdded: false, ease: Ease.exponentialOut})
+        tween1.chain(tween2)
+        this.fireflies[i].addComponent(tween1);
+        this.fireflies[i].addComponent(tween2);
+      }
       this.emitters[i].addModifier(new ScaleOverLife(new FloatScatter(0.05 * this.glow, 0, Ease.backIn)),)
       this.fireflies[i].visible = i < this.life;
       this.emitters[i].alpha = i < this.life;
