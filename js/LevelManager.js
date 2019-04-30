@@ -37,7 +37,6 @@ const LEVELS = [
     ['level2_3', level2_3],
     ['level2_4', level2_4],
     ['level2_5', level2_5],
-
 ]
 
 export default class LevelManager {
