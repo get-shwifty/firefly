@@ -51,8 +51,6 @@ export default class Bat extends GameObject {
 
   createAnimation(x, y) {
     var sprite = new Sprite();
-
-    sprite.blendMode = BlendMode.ADD;
     sprite.x = x;
     sprite.y = y;
 
