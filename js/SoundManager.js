@@ -11,6 +11,16 @@ import flower from 'assets/audio/music/ld44_flowers.ogg'
 import frog from 'assets/audio/music/ld44_frog.ogg'
 import godray from 'assets/audio/music/ld44_lightshaft.ogg'
 
+import cantmove from 'assets/audio/sounds/cantmove.ogg'
+import crystalsFilled from 'assets/audio/sounds/crystals_filled.ogg'
+import defeat from 'assets/audio/sounds/defeat.ogg'
+import door_opens from 'assets/audio/sounds/door_opens.ogg'
+import hit from 'assets/audio/sounds/hit.ogg'
+import lightreceived from 'assets/audio/sounds/lightreceived.ogg'
+import restart from 'assets/audio/sounds/restart.ogg'
+import swap from 'assets/audio/sounds/swap.ogg'
+import victory from 'assets/audio/sounds/victory.ogg'
+
 export default class SoundManager {
     constructor() {
         
@@ -25,6 +35,16 @@ export default class SoundManager {
         assets.enqueueSound('flowerSound', flower)
         assets.enqueueSound('frogSound', frog)
         assets.enqueueSound('godraySound', godray)
+
+        assets.enqueueSound('cantmoveSound', cantmove)
+        assets.enqueueSound('crystalsFilledSound', crystalsFilled)
+        assets.enqueueSound('defeatSound', defeat)
+        assets.enqueueSound('door_opensSound', door_opens)
+        assets.enqueueSound('hitSound', hit)
+        assets.enqueueSound('lightreceivedSound', lightreceived)
+        assets.enqueueSound('restartSound', restart)
+        assets.enqueueSound('swapSound', swap)
+        assets.enqueueSound('victorySound', victory)
     }
 
     onAssetsLoadded() {
@@ -51,6 +71,10 @@ export default class SoundManager {
 
         Black.audio.createChannel('godrayChannel')
         this.godray = Black.audio.play('godraySound', 'godrayChannel', 0, true)
+
+        Black.audio.createChannel('SoundEffectChannel')
+        Black.audio.createChannel('DefeatChannel')
+        Black.audio.createChannel('VictoryChannel')
 
         this.musicSources = {
             'SPIKE' : this.frog,
@@ -79,39 +103,40 @@ export default class SoundManager {
             3: 0.25,
             4: 0.0,
         }
+
     }
 
     trigger(gameEvent) {
         switch(gameEvent) {
             case GameEvent.LEVEL_FINISHED:
-                console.log('LEVEL_FINISHED')
+                Black.audio.play('victorySound', 'VictoryChannel', 1, false)
             break
             case GameEvent.DEAD:
-                console.log('DEAD')
+                Black.audio.play('defeatSound', 'DefeatChannel', 1, false)
             break
             case GameEvent.SWAPPED:
-                console.log('SWAPPED')
+                Black.audio.play('swapSound', 'SoundEffectChannel', 1, false)
             break
             case GameEvent.HIT_BY_SPIKE:
-                console.log('HIT_BY_FROG')
+                Black.audio.play('hitSound', 'SoundEffectChannel', 1, false)
             break
             case GameEvent.HIT_BY_BAT:
-                console.log('HIT_BY_BAT')
+                Black.audio.play('hitSound', 'SoundEffectChannel', 1, false)
             break
             case GameEvent.CRYSTAL_FILLED:
-                console.log('CRYSTAL_FILLED')
+                Black.audio.play('crystalsFilledSound', 'SoundEffectChannel', 1, false)
             break
             case GameEvent.DOOR_OPENED:
-                console.log('DOOR_OPENED')
+                Black.audio.play('door_opensSound', 'SoundEffectChannel', 1, false)
             break
             case GameEvent.FORBIDDEN:
-                console.log('FORBIDDEN')
+                Black.audio.play('cantmoveSound', 'SoundEffectChannel', 1, false)
             break
             case GameEvent.GODRAYS_CONSUMED:
-                console.log('GODRAYS_CONSUMED')
+                Black.audio.play('lightreceivedSound', 'SoundEffectChannel', 1, false)
             break
             case GameEvent.RESTART:
-                console.log('RESTART')
+                Black.audio.play('restartSound', 'SoundEffectChannel', 1, false)
             break
         }
     }
