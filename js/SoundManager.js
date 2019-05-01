@@ -109,22 +109,23 @@ export default class SoundManager {
     trigger(gameEvent) {
         switch(gameEvent) {
             case GameEvent.LEVEL_FINISHED:
-                Black.audio.play('victorySound', 'VictoryChannel', 1, false)
+                Black.audio.play('victorySound', 'VictoryChannel', 0.2, false)
             break
             case GameEvent.DEAD:
                 Black.audio.play('defeatSound', 'DefeatChannel', 1, false)
             break
             case GameEvent.SWAPPED:
-                Black.audio.play('swapSound', 'SoundEffectChannel', 1, false)
+                let swaps = Black.audio.play('swapSound', 'SoundEffectChannel', 1, false)
+                swaps.fade(1, 0, 0.25)
             break
             case GameEvent.HIT_BY_SPIKE:
-                Black.audio.play('hitSound', 'SoundEffectChannel', 1, false)
+                Black.audio.play('hitSound', 'SoundEffectChannel', 0.2, false)
             break
             case GameEvent.HIT_BY_BAT:
-                Black.audio.play('hitSound', 'SoundEffectChannel', 1, false)
+                Black.audio.play('hitSound', 'SoundEffectChannel', 0.2, false)
             break
             case GameEvent.CRYSTAL_FILLED:
-                Black.audio.play('crystalsFilledSound', 'SoundEffectChannel', 1, false)
+                Black.audio.play('crystalsFilledSound', 'SoundEffectChannel', 0.7, false)
             break
             case GameEvent.DOOR_OPENED:
                 Black.audio.play('door_opensSound', 'SoundEffectChannel', 1, false)
@@ -133,7 +134,7 @@ export default class SoundManager {
                 Black.audio.play('cantmoveSound', 'SoundEffectChannel', 1, false)
             break
             case GameEvent.GODRAYS_CONSUMED:
-                Black.audio.play('lightreceivedSound', 'SoundEffectChannel', 1, false)
+                Black.audio.play('lightreceivedSound', 'SoundEffectChannel', 0.7, false)
             break
             case GameEvent.RESTART:
                 Black.audio.play('restartSound', 'SoundEffectChannel', 1, false)
