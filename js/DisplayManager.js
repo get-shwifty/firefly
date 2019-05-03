@@ -57,9 +57,9 @@ export default class DisplayManager extends GameObject {
                     
                     // Adding basic ground texture to layer 1
                     const groundTile = ground.addChild(new DisplayObject)
-                    groundTile.x = +x * TILE_SIZE
-                    groundTile.y = +y * TILE_SIZE
-                    groundTile.addChild(new Sprite('chemin_full'))
+                    groundTile.x = +x * TILE_SIZE - 2
+                    groundTile.y = +y * TILE_SIZE - 2
+                    groundTile.addChild(new Sprite('ground'))
                     
                     // New tile at layer 2
                     const newTile = environment.addChild(new CLASS(level.world[x][y]))
@@ -73,7 +73,7 @@ export default class DisplayManager extends GameObject {
         }
         
         // Layer 3 : Light glow
-        this.glowDict = {}
+        /*this.glowDict = {}
         for(const x of Object.keys(level.glow)) {
             for(const y of Object.keys(level.glow[x])) {
                 const glowTile = this.glow.addChild(new Glow(level.glow[x][y]))
@@ -81,7 +81,7 @@ export default class DisplayManager extends GameObject {
                 glowTile.y = +y * TILE_SIZE
                 this.glowDict['glow_' + x + '_' + y] = glowTile
             }
-        }
+        }*/
         
         // Layer 4 : Player
         this.player = this.addChild(new Firefly())
@@ -118,7 +118,7 @@ export default class DisplayManager extends GameObject {
                 }
             }
         }
-        if (diff.glow){
+        /*if (diff.glow){
             for(const x of Object.keys(diff.glow)) {
                 for(const y of Object.keys(diff.glow[x])) {
                     // console.log(x,y,diff.glow[x][y],this.glowDict['glow_' + x + '_' + y],diff.glow[x][y] || 0)
@@ -132,7 +132,7 @@ export default class DisplayManager extends GameObject {
                     }
                 }
             }
-        }
+        }*/
     }
 
     onCameraMoved(state, x_, y_, w_, h_) {

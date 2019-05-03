@@ -1,8 +1,8 @@
 import { CanvasDriver, Input, Engine, StageScaleMode, MasterAudio } from "black-engine";
 import { Game, TILE_SIZE } from "./game";
 
-export const NB_TILES_WIDTH = 8
-export const NB_TILES_HEIGHT = 5
+export const NB_TILES_WIDTH = 12
+export const NB_TILES_HEIGHT = 7
 
 // Game will be our starting class and rendering will be done on Canvas
 const black = new Engine('container', Game, CanvasDriver, [Input, MasterAudio]);

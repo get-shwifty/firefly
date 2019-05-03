@@ -26,13 +26,17 @@ export default class Sunflower extends GameObject {
   }
   
   update(flower){
-    for (let i = 0; i < this.value; i++){
-      if (this.nbUp < flower.nbUp && i >= this.nbUp && i < flower.nbUp){
+    // Animate up only if was down
+    if(flower.nbUp > this.nbUp && flower.nbUp === this.value) {
+      for (let i = 0; i < this.value; i++) {
         this.flowerAnimateUp(this.flower[i].getComponent(AnimationController))
-      } else if (this.nbUp > flower.nbUp && i < this.nbUp && i >= flower.nbUp) {
+      }
+    }
+    // Animate down only if was up
+    if(flower.nbUp < this.nbUp && this.nbUp === this.value) {
+      for (let i = 0; i < this.value; i++) {
         this.flowerAnimateDown(this.flower[i].getComponent(AnimationController))
       }
-      i < this.nbAwake
     }
     this.value = flower.value
     this.nbUp = flower.nbUp

@@ -19,6 +19,7 @@ import batHidden from "assets/sprite/bat_hidden.png"
 import lifeLogo from "assets/sprite/life.png"
 import glogo from "assets/sprite/light.png"
 import glow from "assets/sprite/dalles.png"
+import ground from "assets/sprite/ground.png"
 
 export const FONT = 'Indie Flower'
 
@@ -64,6 +65,7 @@ export class Game extends GameObject {
         assets.enqueueImage('glogo', glogo);
         assets.enqueueImage('glow', glow);
         assets.enqueueImage('bloc', bloc);
+        assets.enqueueImage('ground', ground);
 
         assets.on('complete', this.onAssetsLoadded, this)
         assets.loadQueue()

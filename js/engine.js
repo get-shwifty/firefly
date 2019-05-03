@@ -329,6 +329,14 @@ function moveToGodrays(state, pos, godrays) {
 function applyGlow(state) {    
     const player = state.player
 
+    for(const [x, y, object] of objectsInState(state, 'world')) {
+        applyGlowToObject(object, player.glow)
+    }
+
+    return
+
+    /*
+
     // Compute new glow
     state.glow = {}
     setGlowAt(state, player.pos.x, player.pos.y, player.glow + 1)
@@ -357,6 +365,8 @@ function applyGlow(state) {
         const object = _.get(state.world, [x, y])
         applyGlowToObject(object, glow)
     }
+
+    */
 }
 
 function applyGlowToObject(object, glow) {
