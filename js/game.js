@@ -157,7 +157,7 @@ export class Game extends GameObject {
         // Trigger game events
         const after = this.changes.after
         if(after.player && after.player.swap) {
-            this.trigger(GameEvent.SWAP)
+            this.trigger(GameEvent.SWAPPED)
         }
         for(const [x, y, obj] of objectsInLayer(after.world)) {
             switch(obj.type) {
