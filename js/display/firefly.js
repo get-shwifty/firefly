@@ -19,16 +19,18 @@ export default class Firefly extends GameObject {
 
   //Mouvement de la libellule
   updatePosition(x, y) {
+    const duration = 0.3
+    const offsetX = x - this.x;
+    const offsetY = y - this.y;
+
     for (let i in this.fireflies) {
-      const offsetX = x - this.x;
-      const offsetY = y - this.y;
-      console.log(i, offsetX, offsetY)
-      const [newPosX, newPosY] = this.sinusPosition(i, 0, offsetX, offsetY)
-      let tween = new Tween({ x: newPosX, y: newPosY }, 1, { playOnAdded: false, ease: Ease.backIn })
+      const [newPosX, newPosY] = this.sinusPosition(i, Black.time.dt * 60 * duration, offsetX, offsetY)
+      let tween = new Tween({ x: newPosX, y: newPosY }, duration, { ease: Ease.backOut })
       this.fireflies[i].addComponent(tween);
     }
-    this.x = x;
-    this.y = y;
+    setTimeout(() => { this.x = x; this.y = y }, duration * 1000)
+    // this.x = x;
+    // this.y = y;
   }
 
   //Swap de la vie et de la lumière
@@ -67,7 +69,6 @@ export default class Firefly extends GameObject {
       let e = this.createEmitter(i)
       this.emitters.push(e)
       this.fireflies[i].addChild(e)
-      this.fireflies[i].alignPivotOffset()
     }
   }
 
@@ -113,6 +114,8 @@ export default class Firefly extends GameObject {
     );
 
     // Add to scene
+    emitter.x = TILE_SIZE / 2
+    emitter.y = TILE_SIZE / 2
     return emitter
   }
 
@@ -131,9 +134,9 @@ export default class Firefly extends GameObject {
     this.anim.add('anim', textureAnim, 50);
     this.anim.play('anim');
 
-    // sprite.alignPivotOffset();
     sprite.scale = 0.3
 
+    sprite.alignPivotOffset()
     this.addChild(sprite);
 
     return sprite;
